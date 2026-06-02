@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 function validate({ name, email, message }) {
   if (!name || name.trim().length < 2) return 'Name must be at least 2 characters.'
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return 'Invalid email address.'
-  if (!message || message.trim().length < 20) return 'Message must be at least 20 characters.'
+  if (!message || message.trim().length < 5) return 'Message must be at least 5 characters.'
   return null
 }
 
