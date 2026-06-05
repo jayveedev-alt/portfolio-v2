@@ -2,8 +2,8 @@ import { Icon } from './Icons'
 
 const socials = [
   { label: 'GitHub',   icon: 'github',   href: 'https://github.com/johnbsantos' },
-  { label: 'LinkedIn', icon: 'linkedin', href: 'https://linkedin.com' },
-  { label: 'Twitter',  icon: 'twitter',  href: 'https://twitter.com' },
+  { label: 'LinkedIn', icon: 'linkedin', href: 'https://linkedin.com/in/johnbsantos' },
+  { label: 'Twitter',  icon: 'twitter',  href: 'https://twitter.com/johnbsantos' },
 ]
 
 export default function Footer() {
@@ -13,7 +13,7 @@ export default function Footer() {
         <a href="#hero" className="font-heading font-bold text-xl text-ink">
           JB<span className="text-rose">.</span>
         </a>
-        <p className="text-muted text-sm">Designed & built by John Benedict Santos · 2025</p>
+        <p className="text-muted text-sm">Designed & built by John Benedict Santos · {new Date().getFullYear()}</p>
         <div className="flex items-center gap-5">
           {socials.map((s) => (
             <a key={s.label} href={s.href}

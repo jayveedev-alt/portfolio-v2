@@ -33,14 +33,14 @@ export const projects = [
     thumb: 'laundry',
   },
   {
-    id: 1,
+    id: 3,
     title: 'Portfolio Website',
     description: 'Modern developer portfolio showcasing my full-stack development projects, technical skills, work experience, and SaaS products. Built with responsive design, smooth animations, optimized performance, and SEO best practices.',
     tags: [
       'React.js',
       'Node.js',
       'Tailwind CSS',
-      'Framer Motion',
+      'Vite',
       'NodeMailer',
     ],
     featured: false,

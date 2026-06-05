@@ -58,6 +58,14 @@
     content: '';
     @apply inline-block w-6 h-[1.5px] bg-rose;
   }
+  .section-label-center {
+    @apply flex justify-center items-center gap-2 font-mono text-[0.72rem] text-rose
+           tracking-[0.12em] uppercase mb-3;
+  }
+  .section-label-center::before {
+    content: '';
+    @apply inline-block w-6 h-[1.5px] bg-rose;
+  }
 
   /* ── Skill chip ── */
   .skill-chip {
@@ -115,6 +123,20 @@
   .reveal.visible {
     @apply opacity-100 translate-y-0;
   }
+
+  /* ── Staggered child reveal ── */
+  .reveal-item {
+    @apply opacity-0 translate-y-6 transition-all duration-500 ease-out;
+  }
+  .reveal-item.visible {
+    @apply opacity-100 translate-y-0;
+  }
+  .reveal-item:nth-child(1)  { transition-delay: 0ms; }
+  .reveal-item:nth-child(2)  { transition-delay: 60ms; }
+  .reveal-item:nth-child(3)  { transition-delay: 120ms; }
+  .reveal-item:nth-child(4)  { transition-delay: 180ms; }
+  .reveal-item:nth-child(5)  { transition-delay: 240ms; }
+  .reveal-item:nth-child(6)  { transition-delay: 300ms; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -10,9 +10,9 @@ export default function WhatIDo() {
           <h2 className="font-heading font-bold text-4xl md:text-5xl text-ink">Services I offer</h2>
         </div>
 
-        <div className="reveal grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {services.map((s) => (
-            <div key={s.id} className="card card-hover p-7">
+            <div key={s.id} className="reveal-item card card-hover p-7">
               <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
                 style={{ background: 'rgba(178,135,132,0.1)' }}>
                 <Icon name={s.icon} className="w-5 h-5" />

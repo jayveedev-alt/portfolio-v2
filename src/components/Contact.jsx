@@ -6,7 +6,7 @@ const CALENDLY_URL =
 
 const quickLinks = [
   { label: 'Email',    value: 'jayveedev.alt@gmail.com', icon: 'mail',     href: 'mailto:jayveedev.alt@gmail.com' },
-  { label: 'LinkedIn', value: 'John Benedict Santos',    icon: 'linkedin', href: 'https://linkedin.com' },
+  { label: 'LinkedIn', value: 'John Benedict Santos',    icon: 'linkedin', href: 'https://linkedin.com/in/johnbsantos' },
   { label: 'GitHub',   value: '@johnbsantos',            icon: 'github',   href: 'https://github.com/johnbsantos' },
 ]
 
@@ -109,7 +109,7 @@ export default function Contact() {
 
         {/* Heading */}
         <div className="reveal mb-14 text-center">
-          <div className="section-label" style={{ justifyContent: 'center' }}>Let's Work Together</div>
+          <div className="section-label-center">Let's Work Together</div>
           <h2 className="font-heading font-bold text-4xl md:text-5xl text-ink mt-2">
             Book a call or<br />
             <em className="not-italic text-rose">send a message</em>
@@ -172,7 +172,7 @@ export default function Contact() {
                 style={{ display: 'none' }}
               />
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="name" className="block text-xs text-muted font-mono uppercase tracking-wider mb-2">Name</label>
                   <input

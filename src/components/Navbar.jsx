@@ -2,20 +2,36 @@ import { useState, useEffect } from 'react'
 import { Icon } from './Icons'
 
 const links = [
-  { label: 'What I Do',   href: '#what-i-do'  },
-  { label: 'Projects',    href: '#projects'    },
-  { label: 'Experience',  href: '#experience'  },
-  { label: 'Contact',     href: '#contact'     },
+  { label: 'What I Do',   href: '#what-i-do',  id: 'what-i-do'  },
+  { label: 'Projects',    href: '#projects',    id: 'projects'    },
+  { label: 'Experience',  href: '#experience',  id: 'experience'  },
+  { label: 'Contact',     href: '#contact',     id: 'contact'     },
 ]
 
 export default function Navbar() {
-  const [open, setOpen]       = useState(false)
+  const [open, setOpen]         = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [active, setActive]     = useState('')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    const sectionIds = links.map((l) => l.id)
+    const observers = sectionIds.map((id) => {
+      const el = document.getElementById(id)
+      if (!el) return null
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActive(id) },
+        { rootMargin: '-40% 0px -55% 0px' }
+      )
+      obs.observe(el)
+      return obs
+    })
+    return () => observers.forEach((obs) => obs?.disconnect())
   }, [])
 
   const close = () => setOpen(false)
@@ -37,7 +53,14 @@ export default function Navbar() {
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="nav-link">{l.label}</a>
+            <a
+              key={l.href}
+              href={l.href}
+              aria-current={active === l.id ? 'true' : undefined}
+              className={`nav-link ${active === l.id ? 'text-ink after:w-full' : ''}`}
+            >
+              {l.label}
+            </a>
           ))}
         </div>
 
@@ -59,7 +82,15 @@ export default function Navbar() {
       {open && (
         <div className="md:hidden px-6 pb-5 flex flex-col gap-4 border-t border-border bg-cream">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="nav-link block py-1" onClick={close}>{l.label}</a>
+            <a
+              key={l.href}
+              href={l.href}
+              aria-current={active === l.id ? 'true' : undefined}
+              className={`nav-link block py-1 ${active === l.id ? 'text-ink' : ''}`}
+              onClick={close}
+            >
+              {l.label}
+            </a>
           ))}
           <a href="#contact" className="btn-primary w-full justify-center mt-1" onClick={close}>Book a Call</a>
         </div>
