@@ -20,6 +20,15 @@ export default function Hero() {
             applications. 7+ years shipping products people actually use.
           </p>
 
+          <div className="flex flex-wrap gap-2 mb-8">
+            {['Full-Stack', 'Fixed-Scope Pricing', 'Fast Turnaround'].map((b) => (
+              <span key={b} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border border-border bg-white text-ink">
+                <span className="w-1.5 h-1.5 rounded-full bg-rose inline-block" />
+                {b}
+              </span>
+            ))}
+          </div>
+
           <div className="flex flex-wrap gap-3 mb-10">
             <a href="#contact" className="btn-primary">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">

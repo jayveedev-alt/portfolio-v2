@@ -3,6 +3,7 @@ import { Icon } from './Icons'
 
 const links = [
   { label: 'What I Do',   href: '#what-i-do',  id: 'what-i-do'  },
+  { label: 'Process',     href: '#process',    id: 'process'    },
   { label: 'Projects',    href: '#projects',    id: 'projects'    },
   { label: 'Experience',  href: '#experience',  id: 'experience'  },
   { label: 'Contact',     href: '#contact',     id: 'contact'     },
