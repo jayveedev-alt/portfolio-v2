@@ -1,7 +1,22 @@
 export default function Hero() {
   return (
-    <section id="hero" className="min-h-screen flex items-center pt-20 pb-16 px-6">
-      <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <section id="hero" className="relative min-h-screen flex items-center pt-20 pb-16 px-6">
+      {/* Background: grid pattern + soft gradient blobs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          className="absolute inset-0 bg-grid-light"
+          style={{
+            maskImage: 'radial-gradient(circle at 50% 35%, #000, transparent 70%)',
+            WebkitMaskImage: 'radial-gradient(circle at 50% 35%, #000, transparent 70%)',
+          }}
+        />
+        <div className="absolute -top-24 -right-24 w-[28rem] h-[28rem] rounded-full blur-3xl opacity-30"
+          style={{ background: 'radial-gradient(circle, #3758f9, transparent 70%)' }} />
+        <div className="absolute top-1/2 -left-24 w-80 h-80 rounded-full blur-3xl opacity-20"
+          style={{ background: 'radial-gradient(circle, #c7d2fe, transparent 70%)' }} />
+      </div>
+
+      <div className="relative max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
         {/* ── Left ── */}
         <div>
