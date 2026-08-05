@@ -1,7 +1,7 @@
 // Centralised SVG icon set
-const S = { fill: 'none', stroke: '#b28784', strokeWidth: 1.8, className: 'w-4 h-4' }
+const S = { fill: 'none', stroke: '#3758f9', strokeWidth: 1.8, className: 'w-4 h-4' }
 
-export function Icon({ name, className = 'w-4 h-4', color = '#b28784' }) {
+export function Icon({ name, className = 'w-4 h-4', color = '#3758f9' }) {
   const p = { fill: 'none', stroke: color, strokeWidth: 1.8, className, xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24' }
   const icons = {
     monitor:     <svg {...p}><rect x="2" y="3" width="20" height="14" rx="2"/><path d="m8 21 4-4 4 4"/><path d="M12 17v4"/></svg>,

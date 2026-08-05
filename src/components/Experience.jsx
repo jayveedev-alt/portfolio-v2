@@ -4,7 +4,7 @@ import { Icon } from './Icons'
 function TimelineItem({ item }) {
   return (
     <div className="relative mb-10 last:mb-0">
-      <div className="timeline-dot" style={item.isEducation ? { background: '#e0cccb' } : {}} />
+      <div className="timeline-dot" style={item.isEducation ? { background: '#c7d2fe' } : {}} />
       <div className="card card-hover p-5">
         <div className="flex items-start justify-between gap-3 flex-wrap mb-1">
           <div>

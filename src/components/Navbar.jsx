@@ -74,7 +74,7 @@ export default function Navbar() {
           aria-label="Toggle menu"
           aria-expanded={open}
         >
-          <Icon name={open ? 'x' : 'menu'} className="w-5 h-5" color="#9a7a78" />
+          <Icon name={open ? 'x' : 'menu'} className="w-5 h-5" color="#6b7280" />
         </button>
       </div>
 

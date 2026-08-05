@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Icon } from './Icons'
 
 const CALENDLY_URL =
-  'https://calendly.com/jayveedev-alt/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=b28784'
+  'https://calendly.com/jayveedev-alt/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=3758f9'
 
 const quickLinks = [
   { label: 'Email',    value: 'jayveedev.alt@gmail.com', icon: 'mail',     href: 'mailto:jayveedev.alt@gmail.com' },
@@ -127,8 +127,8 @@ export default function Contact() {
               rel="noopener noreferrer"
               className="card card-hover p-5 flex items-center gap-4 cursor-pointer">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ background: 'rgba(178,135,132,0.1)' }}>
-                <Icon name={l.icon} className="w-5 h-5" color="#b28784" />
+                style={{ background: 'rgba(55,88,249,0.1)' }}>
+                <Icon name={l.icon} className="w-5 h-5" color="#3758f9" />
               </div>
               <div>
                 <div className="text-xs text-muted font-mono uppercase tracking-wider">{l.label}</div>

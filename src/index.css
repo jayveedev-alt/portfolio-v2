@@ -6,15 +6,15 @@
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
-    background-color: #f9f8f6;
-    color: #2d1f1e;
-    font-family: 'DM Sans', sans-serif;
+    background-color: #f9fafb;
+    color: #111827;
+    font-family: 'Inter', sans-serif;
     overflow-x: hidden;
   }
   ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-track { background: #f9f8f6; }
-  ::-webkit-scrollbar-thumb { background: #e0cccb; border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: #b28784; }
+  ::-webkit-scrollbar-track { background: #f9fafb; }
+  ::-webkit-scrollbar-thumb { background: #c7d2fe; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #3758f9; }
 }
 
 @layer components {
@@ -23,14 +23,14 @@
     @apply bg-white border border-border rounded-[20px] transition-all duration-300;
   }
   .card-hover:hover {
-    @apply border-rose shadow-[0_12px_40px_rgba(178,135,132,0.15)] -translate-y-1;
+    @apply border-rose shadow-[0_12px_40px_rgba(55,88,249,0.15)] -translate-y-1;
   }
 
   /* ── Buttons ── */
   .btn-primary {
     @apply inline-flex items-center gap-2 px-7 py-3 bg-rose text-white rounded-[14px]
            font-semibold text-sm transition-all duration-200 cursor-pointer
-           hover:bg-roseDark hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(178,135,132,0.35)];
+           hover:bg-roseDark hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(55,88,249,0.35)];
   }
   .btn-outline {
     @apply inline-flex items-center gap-2 px-7 py-3 border-[1.5px] border-rose text-rose
@@ -84,14 +84,14 @@
   /* ── Timeline ── */
   .timeline-line {
     @apply absolute left-4 top-0 bottom-0 w-[1.5px];
-    background: linear-gradient(to bottom, #b28784, #e8d5d3);
+    background: linear-gradient(to bottom, #3758f9, #e5e7eb);
   }
   .timeline-dot {
     @apply absolute w-[15px] h-[15px] bg-rose rounded-full;
     left: -31px;
     top: 6px;
-    border: 3px solid #f9f8f6;
-    box-shadow: 0 0 0 1.5px #b28784;
+    border: 3px solid #f9fafb;
+    box-shadow: 0 0 0 1.5px #3758f9;
   }
 
   /* ── Project thumb ── */
@@ -101,7 +101,7 @@
   .proj-overlay {
     @apply absolute inset-0 flex items-center justify-center opacity-0 transition-opacity
            duration-300 rounded-[14px];
-    background: rgba(178,135,132,0.88);
+    background: rgba(55,88,249,0.88);
   }
   .card:hover .proj-overlay { @apply opacity-100; }
 
@@ -109,11 +109,11 @@
   .form-input {
     @apply w-full bg-cream border-[1.5px] border-border rounded-xl px-4 py-3
            font-body text-[0.9rem] text-ink outline-none transition-all duration-200
-           placeholder:text-[#c4a5a3];
+           placeholder:text-[#9ca3af];
   }
   .form-input:focus {
     @apply border-rose;
-    box-shadow: 0 0 0 3px rgba(178,135,132,0.12);
+    box-shadow: 0 0 0 3px rgba(55,88,249,0.12);
   }
 
   /* ── Reveal animation ── */

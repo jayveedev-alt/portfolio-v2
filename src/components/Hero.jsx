@@ -55,7 +55,7 @@ export default function Hero() {
               <div className="flex items-center gap-3 mb-6">
                 <div
                   className="w-12 h-12 rounded-2xl flex items-center justify-center font-heading font-black text-white text-lg"
-                  style={{ background: 'linear-gradient(135deg,#b28784,#8a6462)' }}
+                  style={{ background: 'linear-gradient(135deg,#3758f9,#2c3ed1)' }}
                 >
                   JB
                 </div>
@@ -71,7 +71,7 @@ export default function Hero() {
               {/* Mini code block */}
               <div
                 className="rounded-xl p-5 font-mono text-xs leading-7"
-                style={{ background: '#f9f8f6', border: '1px solid #e8d5d3' }}
+                style={{ background: '#f9fafb', border: '1px solid #e5e7eb' }}
               >
                 <div><span className="text-muted">const</span> <span className="text-rose">developer</span> <span className="text-muted">= {'{'}</span></div>
                 <div className="ml-4"><span className="text-roseDark">name</span><span className="text-muted">:</span> <span className="text-rose">'John Benedict Santos'</span><span className="text-muted">,</span></div>
@@ -84,7 +84,7 @@ export default function Hero() {
 
             {/* Floating badge */}
             <div className="absolute -bottom-5 -left-5 card px-4 py-3 flex items-center gap-2 shadow-lg">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#b28784" className="w-4 h-4">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#3758f9" className="w-4 h-4">
                 <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd"/>
               </svg>
               <span className="text-sm font-medium text-ink">Open to opportunities</span>
