@@ -1,7 +1,7 @@
 export const workExperience = [
   {
     id: 1,
-    role: 'SeniorFull Stack Developer',
+    role: 'Senior Full Stack Developer',
     company: 'Localfit Media LLC',
     period: '2025 – Present',
     description: 'Built 15+ client web apps across e-commerce, SaaS, and healthcare. Owned full delivery from design to deployment.',

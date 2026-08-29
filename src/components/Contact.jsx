@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from 'react'
 import { Icon } from './Icons'
 
 const CALENDLY_URL =
-  'https://calendly.com/jayveedev-alt/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=3758f9'
+  'https://calendly.com/jayveedev-alt/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=d4ff3d'
 
 const quickLinks = [
   { label: 'Email',    value: 'jayveedev.alt@gmail.com', icon: 'mail',     href: 'mailto:jayveedev.alt@gmail.com' },
   { label: 'LinkedIn', value: 'John Benedict Santos',    icon: 'linkedin', href: 'https://linkedin.com/in/johnbsantos' },
-  { label: 'GitHub',   value: '@johnbsantos',            icon: 'github',   href: 'https://github.com/johnbsantos' },
+  { label: 'GitHub',   value: '@jayveedev-alt',          icon: 'github',   href: 'https://github.com/jayveedev-alt' },
 ]
 
 const COOLDOWN_SECONDS = 60
@@ -104,64 +104,70 @@ export default function Contact() {
   const isDisabled = loading || cooldown > 0
 
   return (
-    <section id="contact" className="py-28 px-6">
+    <section id="contact" className="py-28 px-6 border-t border-line">
       <div className="max-w-6xl mx-auto">
 
         {/* Heading */}
         <div className="reveal mb-14 text-center">
-          <div className="section-label-center">Let's Work Together</div>
-          <h2 className="font-heading font-bold text-4xl md:text-5xl text-ink mt-2">
-            Book a call or<br />
-            <em className="not-italic text-rose">send a message</em>
+          <div className="eyebrow-center">Get In Touch</div>
+          <h2 className="h-display text-4xl sm:text-5xl text-ink">
+            Book a call or <span className="serif-em">send a message.</span>
           </h2>
-          <p className="text-muted mt-4 max-w-xl mx-auto">
-            Pick a time that works for you, or drop me a message below. I typically respond within 24 hours.
+          <p className="text-muted mt-5 max-w-xl mx-auto leading-relaxed">
+            Pick a time that works for you, or drop me a note below. I reply within 24 hours.
           </p>
         </div>
 
-        {/* Quick link cards */}
-        <div className="reveal grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
+        {/* Quick links */}
+        <div className="reveal grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
           {quickLinks.map((l) => (
-            <a key={l.label} href={l.href}
+            <a
+              key={l.label}
+              href={l.href}
               target={l.label !== 'Email' ? '_blank' : undefined}
               rel="noopener noreferrer"
-              className="card card-hover p-5 flex items-center gap-4 cursor-pointer">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ background: 'rgba(55,88,249,0.1)' }}>
-                <Icon name={l.icon} className="w-5 h-5" color="#3758f9" />
+              className="card card-hover p-5 flex items-center gap-4 cursor-pointer group"
+            >
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0
+                              bg-accent/[0.07] border border-accent/20
+                              group-hover:bg-accent/[0.14] transition-colors duration-300">
+                <Icon name={l.icon} className="w-4 h-4" color="#d4ff3d" />
               </div>
-              <div>
-                <div className="text-xs text-muted font-mono uppercase tracking-wider">{l.label}</div>
-                <div className="font-medium text-ink text-sm">{l.value}</div>
+              <div className="min-w-0">
+                <div className="mock-label">{l.label}</div>
+                <div className="text-sm text-ink truncate mt-0.5">{l.value}</div>
               </div>
             </a>
           ))}
         </div>
 
-        {/* Calendly + Form */}
-        <div className="reveal grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Calendly + form */}
+        <div className="reveal grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-          {/* Calendly embed */}
-          <div className="card overflow-hidden">
-            <div className="px-6 pt-6 pb-2">
-              <div className="section-label">Schedule a Meeting</div>
-              <h3 className="font-heading font-semibold text-xl text-ink">Pick a time</h3>
-              <p className="text-muted text-sm mt-1">30-min discovery call — free, no pressure.</p>
+          {/* Calendly */}
+          <div className="card overflow-hidden flex flex-col">
+            <div className="px-7 pt-7 pb-4">
+              <div className="eyebrow !mb-3">Schedule a Meeting</div>
+              <h3 className="font-heading font-semibold text-lg text-ink">Pick a time</h3>
+              <p className="text-muted text-sm mt-1.5">30-minute discovery call — free, no pressure.</p>
             </div>
-            <div
-              ref={calendlyRef}
-              className="calendly-inline-widget"
-              data-url={CALENDLY_URL}
-              style={{ minWidth: '100%', height: 580 }}
-            />
+            {/* Calendly renders its own light UI; the rounded shell keeps it a deliberate inset panel */}
+            <div className="mx-3 mb-3 rounded-xl overflow-hidden bg-white border border-line">
+              <div
+                ref={calendlyRef}
+                className="calendly-inline-widget"
+                data-url={CALENDLY_URL}
+                style={{ minWidth: '100%', height: 580 }}
+              />
+            </div>
           </div>
 
-          {/* Contact form */}
-          <div className="card p-7">
-            <div className="section-label">Or Send a Message</div>
-            <h3 className="font-heading font-semibold text-xl text-ink mb-6">Drop me a note</h3>
-            <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+          {/* Form */}
+          <div className="card p-7 sm:p-8">
+            <div className="eyebrow !mb-3">Or Send a Message</div>
+            <h3 className="font-heading font-semibold text-lg text-ink mb-7">Drop me a note</h3>
 
+            <form onSubmit={handleSubmit} className="space-y-4" noValidate>
               {/* Honeypot — hidden from real users, traps bots */}
               <input
                 type="text"
@@ -174,53 +180,56 @@ export default function Contact() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="name" className="block text-xs text-muted font-mono uppercase tracking-wider mb-2">Name</label>
+                  <label htmlFor="name" className="block mock-label mb-2">Name</label>
                   <input
-                    id="name" name="name" type="text" placeholder="John Doe"
-                    className={`form-input ${errors.name ? 'border-red-400 focus:border-red-400' : ''}`}
+                    id="name" name="name" type="text" placeholder="Juan Dela Cruz"
+                    className={`form-input ${errors.name ? '!border-rose-500/60' : ''}`}
                     value={fields.name} onChange={handleChange}
                     autoComplete="name"
                   />
-                  {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name}</p>}
+                  {errors.name && <p className="text-xs text-rose-400 mt-1.5">{errors.name}</p>}
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-xs text-muted font-mono uppercase tracking-wider mb-2">Email</label>
+                  <label htmlFor="email" className="block mock-label mb-2">Email</label>
                   <input
-                    id="email" name="email" type="email" placeholder="john@example.com"
-                    className={`form-input ${errors.email ? 'border-red-400 focus:border-red-400' : ''}`}
+                    id="email" name="email" type="email" placeholder="you@example.com"
+                    className={`form-input ${errors.email ? '!border-rose-500/60' : ''}`}
                     value={fields.email} onChange={handleChange}
                     autoComplete="email"
                   />
-                  {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
+                  {errors.email && <p className="text-xs text-rose-400 mt-1.5">{errors.email}</p>}
                 </div>
               </div>
 
               <div>
-                <label htmlFor="subject" className="block text-xs text-muted font-mono uppercase tracking-wider mb-2">Subject</label>
+                <label htmlFor="subject" className="block mock-label mb-2">Subject</label>
                 <input
-                  id="subject" name="subject" type="text" placeholder="Project inquiry, job offer..."
+                  id="subject" name="subject" type="text" placeholder="Project inquiry, job offer…"
                   className="form-input"
                   value={fields.subject} onChange={handleChange}
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-xs text-muted font-mono uppercase tracking-wider mb-2">Message</label>
+                <label htmlFor="message" className="block mock-label mb-2">Message</label>
                 <textarea
-                  id="message" name="message" rows={6} placeholder="Tell me about your project..."
-                  className={`form-input resize-none ${errors.message ? 'border-red-400 focus:border-red-400' : ''}`}
+                  id="message" name="message" rows={7} placeholder="Tell me about your project…"
+                  className={`form-input resize-none ${errors.message ? '!border-rose-500/60' : ''}`}
                   value={fields.message} onChange={handleChange}
                 />
-                {errors.message && <p className="text-xs text-red-500 mt-1">{errors.message}</p>}
+                {errors.message && <p className="text-xs text-rose-400 mt-1.5">{errors.message}</p>}
               </div>
 
-              <button type="submit" disabled={isDisabled}
-                className="btn-primary w-full justify-center disabled:opacity-60 disabled:cursor-not-allowed">
+              <button
+                type="submit"
+                disabled={isDisabled}
+                className="btn-accent w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0"
+              >
                 {loading ? (
                   <>
                     <svg className="animate-spin w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                     </svg>
                     Sending…
                   </>
@@ -228,25 +237,24 @@ export default function Contact() {
                   `Wait ${cooldown}s before sending again`
                 ) : (
                   <>
-                    <Icon name="paper-plane" className="w-4 h-4" color="white" />
-                    Send Message
+                    <Icon name="paper-plane" className="w-4 h-4" color="currentColor" />
+                    Send message
                   </>
                 )}
               </button>
 
               {status === 'success' && (
-                <p className="text-center text-sm font-medium text-rose">
-                  Message sent! I'll get back to you within 24 hours.
+                <p className="text-center text-sm font-medium text-mint">
+                  Message sent — I&apos;ll get back to you within 24 hours.
                 </p>
               )}
               {status === 'error' && (
-                <p className="text-center text-sm font-medium text-red-500">
+                <p className="text-center text-sm font-medium text-rose-400">
                   Something went wrong. Please try again or email me directly.
                 </p>
               )}
             </form>
           </div>
-
         </div>
       </div>
     </section>

@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react'
 import { Icon } from './Icons'
 
 const links = [
-  { label: 'What I Do',   href: '#what-i-do',  id: 'what-i-do'  },
-  { label: 'Process',     href: '#process',    id: 'process'    },
-  { label: 'Projects',    href: '#projects',    id: 'projects'    },
-  { label: 'Experience',  href: '#experience',  id: 'experience'  },
-  { label: 'Contact',     href: '#contact',     id: 'contact'     },
+  { label: 'Work',     href: '#work',       id: 'work'       },
+  { label: 'Services', href: '#services',   id: 'services'   },
+  { label: 'Process',  href: '#process',    id: 'process'    },
+  { label: 'Stack',    href: '#skills',     id: 'skills'     },
+  { label: 'FAQ',      href: '#faq',        id: 'faq'        },
 ]
 
 export default function Navbar() {
@@ -16,17 +16,17 @@ export default function Navbar() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   useEffect(() => {
-    const sectionIds = links.map((l) => l.id)
-    const observers = sectionIds.map((id) => {
-      const el = document.getElementById(id)
+    const observers = links.map((l) => {
+      const el = document.getElementById(l.id)
       if (!el) return null
       const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActive(id) },
+        ([entry]) => { if (entry.isIntersecting) setActive(l.id) },
         { rootMargin: '-40% 0px -55% 0px' }
       )
       obs.observe(el)
@@ -39,20 +39,29 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-shadow duration-300 ${
-        scrolled ? 'shadow-sm' : ''
-      } bg-cream/80 backdrop-blur-md border-b border-border`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-dark-950/80 backdrop-blur-xl border-b border-line'
+          : 'bg-transparent border-b border-transparent'
+      }`}
       role="navigation"
       aria-label="Main navigation"
     >
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
         {/* Logo */}
-        <a href="#hero" className="font-heading font-bold text-xl text-ink tracking-tight" aria-label="John Benedict Santos">
-          JB<span className="text-rose">.</span>
+        <a href="#hero" className="flex items-center gap-2.5 shrink-0" aria-label="John Benedict Santos — home">
+          <span className="w-8 h-8 rounded-lg border border-accent/30 bg-accent/10 flex items-center justify-center
+                           font-mono text-[0.7rem] text-accent">
+            JB
+          </span>
+          <span className="hidden sm:block font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted leading-tight">
+            John B. Santos
+            <span className="block text-faint">Full Stack Developer</span>
+          </span>
         </a>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-8">
           {links.map((l) => (
             <a
               key={l.href}
@@ -66,22 +75,24 @@ export default function Navbar() {
         </div>
 
         {/* Desktop CTA */}
-        <a href="#contact" className="btn-primary hidden md:inline-flex">Book a Call</a>
+        <a href="#contact" className="btn-accent hidden lg:inline-flex !py-2.5 !px-5">
+          Let&apos;s talk
+        </a>
 
         {/* Mobile toggle */}
         <button
           onClick={() => setOpen((v) => !v)}
-          className="md:hidden p-2 rounded-lg text-muted hover:text-ink transition-colors cursor-pointer"
+          className="lg:hidden p-2 rounded-lg text-muted hover:text-accent transition-colors cursor-pointer"
           aria-label="Toggle menu"
           aria-expanded={open}
         >
-          <Icon name={open ? 'x' : 'menu'} className="w-5 h-5" color="#6b7280" />
+          <Icon name={open ? 'x' : 'menu'} className="w-5 h-5" color="currentColor" />
         </button>
       </div>
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden px-6 pb-5 flex flex-col gap-4 border-t border-border bg-cream">
+        <div className="lg:hidden px-6 pb-6 pt-2 flex flex-col gap-4 border-t border-line bg-dark-950/95 backdrop-blur-xl">
           {links.map((l) => (
             <a
               key={l.href}
@@ -93,7 +104,9 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
-          <a href="#contact" className="btn-primary w-full justify-center mt-1" onClick={close}>Book a Call</a>
+          <a href="#contact" className="btn-accent w-full justify-center mt-1" onClick={close}>
+            Let&apos;s talk
+          </a>
         </div>
       )}
     </nav>

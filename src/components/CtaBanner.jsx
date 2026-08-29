@@ -1,31 +1,64 @@
+import { useState } from 'react'
+import { Icon } from './Icons'
+
+const EMAIL = 'jayveedev.alt@gmail.com'
+
 export default function CtaBanner() {
+  const [copied, setCopied] = useState(false)
+
+  async function copyEmail() {
+    try {
+      await navigator.clipboard.writeText(EMAIL)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      // Clipboard blocked (insecure origin or denied permission) — the mailto link still works.
+    }
+  }
+
   return (
-    <section className="px-6">
+    <section className="px-6 py-28 border-t border-line relative overflow-hidden">
+      {/* Accent bloom behind the panel */}
       <div
-        className="reveal max-w-6xl mx-auto rounded-[28px] px-8 py-16 md:py-20 text-center relative overflow-hidden"
-        style={{ background: 'linear-gradient(135deg,#3758f9,#2c3ed1)' }}
-      >
-        <div className="relative z-10">
-          <h2 className="font-heading font-bold text-3xl md:text-5xl text-white mb-4">
-            Have a project in mind?<br />Let's build it.
-          </h2>
-          <p className="text-white/80 max-w-xl mx-auto mb-8">
-            Whether it's a full product or a tricky feature, I'm usually free within a week or two.
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 px-7 py-3 bg-white text-rose rounded-[14px] font-semibold text-sm transition-all duration-200 cursor-pointer hover:-translate-y-px hover:shadow-lg"
-            >
-              Book a Call
-            </a>
-            <a
-              href="#projects"
-              className="inline-flex items-center gap-2 px-7 py-3 border-[1.5px] border-white/40 text-white rounded-[14px] font-semibold text-sm transition-all duration-200 cursor-pointer hover:bg-white/10"
-            >
-              See My Work
-            </a>
-          </div>
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[42rem] h-[42rem] rounded-full blur-[140px] opacity-[0.09] pointer-events-none"
+        style={{ background: 'radial-gradient(circle, #d4ff3d, transparent 65%)' }}
+      />
+
+      <div className="reveal relative max-w-4xl mx-auto text-center">
+        <div className="eyebrow-center">Ready When You Are</div>
+
+        <h2 className="h-display text-4xl sm:text-5xl lg:text-6xl text-ink mb-6">
+          Have a project in mind?<br />
+          <span className="serif-em">Let&apos;s talk.</span>
+        </h2>
+
+        <p className="text-muted max-w-xl mx-auto mb-10 leading-relaxed">
+          A high-end landing page, a rebuild with real motion, or a working SaaS product —
+          tell me what you are trying to make and I will tell you exactly what it takes.
+        </p>
+
+        <div className="flex flex-wrap justify-center gap-3 mb-10">
+          <a href={`mailto:${EMAIL}`} className="btn-accent">
+            <Icon name="mail" className="w-4 h-4" color="currentColor" />
+            Send an email
+          </a>
+          <a href="#contact" className="btn-ghost">
+            <Icon name="calendar" className="w-4 h-4" color="currentColor" />
+            Book a call
+          </a>
+        </div>
+
+        {/* Email + copy */}
+        <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-line bg-white/[0.02]">
+          <span className="font-mono text-xs text-muted">{EMAIL}</span>
+          <span className="w-px h-4 bg-line2" />
+          <button
+            type="button"
+            onClick={copyEmail}
+            className="font-mono text-xs text-accent hover:text-ink transition-colors cursor-pointer"
+          >
+            {copied ? 'Copied ✓' : 'Copy'}
+          </button>
         </div>
       </div>
     </section>

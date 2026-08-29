@@ -4,20 +4,37 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        heading: ['Plus Jakarta Sans', 'sans-serif'],
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
+        heading: ['"Plus Jakarta Sans"', 'sans-serif'],
         body:    ['Inter', 'sans-serif'],
-        mono:    ['JetBrains Mono', 'monospace'],
+        mono:    ['"JetBrains Mono"', 'monospace'],
       },
       colors: {
-        rose:      '#3758f9',
-        roseLight: '#c7d2fe',
-        roseDark:  '#2c3ed1',
-        cream:     '#f9fafb',
-        card:      '#ffffff',
-        ink:       '#111827',
-        muted:     '#6b7280',
-        border:    '#e5e7eb',
-        surface:   '#f3f4f6',
+        // ── Surfaces (darkest → lightest) ──
+        dark: {
+          950: '#070707',
+          900: '#0a0a0a',
+          850: '#101010',
+          800: '#121212',
+          700: '#1a1a1a',
+          600: '#262626',
+          500: '#404040',
+        },
+        // ── Accents ──
+        accent:    '#d4ff3d',   // lime — primary
+        accentDim: '#a8cc2f',
+        mint:      '#34d399',
+        iris:      '#818cf8',
+        aqua:      '#22d3ee',
+        // ── Text ──
+        ink:   '#fafafa',
+        muted: '#9ca3af',
+        faint: '#6b7280',
+        line:  'rgba(255,255,255,0.08)',
+        line2: 'rgba(255,255,255,0.14)',
+      },
+      backgroundSize: {
+        grid: '4.5rem 4.5rem',
       },
     },
   },
