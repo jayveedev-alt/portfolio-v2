@@ -1,9 +1,9 @@
 import { techStack } from '../data/techStack'
 import EdgeMarquee from './EdgeMarquee'
 
-function Logo({ item, className = 'w-6 h-6 sm:w-7 sm:h-7' }) {
+function Logo({ item, className = 'w-6 h-6 sm:w-7 sm:h-7', color }) {
   return (
-    <svg viewBox="0 0 24 24" className={className} fill={item.color} aria-hidden="true">
+    <svg viewBox="0 0 24 24" className={className} fill={color ?? item.color} aria-hidden="true">
       <path d={item.path} />
     </svg>
   )
@@ -34,9 +34,14 @@ function MarqueePart({ group }) {
       >
         {group.title}
       </span>
-      <span className="flex items-center gap-3 px-5 py-3 mr-8 rounded-full bg-dark-950">
+      <span className="flex items-center gap-5 lg:gap-6 pr-8">
         {group.items.map((item) => (
-          <Logo key={item.label} item={item} className="w-6 h-6" />
+          <Logo
+            key={item.label}
+            item={item}
+            color="#070707"
+            className="w-10 h-10 lg:w-12 lg:h-12"
+          />
         ))}
       </span>
     </>
