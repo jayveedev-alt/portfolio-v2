@@ -1,0 +1,26 @@
+.edge-marquee {
+  position: relative;
+  overflow: hidden;
+}
+
+.edge-marquee__overlay {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translate3d(0, 101%, 0);
+}
+
+.edge-marquee__inner {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: max-content;
+  will-change: transform;
+}
+
+.edge-marquee__part {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}

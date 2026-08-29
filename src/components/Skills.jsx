@@ -1,4 +1,13 @@
 import { techStack } from '../data/techStack'
+import EdgeMarquee from './EdgeMarquee'
+
+function Logo({ item, className = 'w-6 h-6 sm:w-7 sm:h-7' }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill={item.color} aria-hidden="true">
+      <path d={item.path} />
+    </svg>
+  )
+}
 
 function Tile({ item }) {
   return (
@@ -10,38 +19,59 @@ function Tile({ item }) {
                  flex items-center justify-center transition-all duration-300
                  hover:bg-white/[0.09] hover:border-accent/40 hover:-translate-y-1"
     >
-      <svg viewBox="0 0 24 24" className="w-6 h-6 sm:w-7 sm:h-7" fill={item.color} aria-hidden="true">
-        <path d={item.path} />
-      </svg>
+      <Logo item={item} />
     </div>
+  )
+}
+
+// One repetition of the hover marquee: the group name, then its logos in a pill
+function MarqueePart({ group }) {
+  return (
+    <>
+      <span
+        className="font-heading font-extrabold uppercase whitespace-nowrap px-8
+                   text-2xl sm:text-3xl lg:text-[2.1rem] tracking-[-0.03em] text-dark-950"
+      >
+        {group.title}
+      </span>
+      <span className="flex items-center gap-3 px-5 py-3 mr-8 rounded-full bg-dark-950">
+        {group.items.map((item) => (
+          <Logo key={item.label} item={item} className="w-6 h-6" />
+        ))}
+      </span>
+    </>
   )
 }
 
 function StackGroup({ group }) {
   return (
-    <div
-      className="reveal-item grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start
-                 py-12 border-t border-line first:border-t-0 first:pt-0"
+    <EdgeMarquee
+      className="border-t border-line first:border-t-0"
+      background="#d4ff3d"
+      speed={18}
+      part={<MarqueePart group={group} />}
     >
-      {/* Left: number + title + description */}
-      <div className="lg:col-span-6 flex gap-5">
-        <span className="font-mono text-xs text-accent pt-2.5 shrink-0">{group.number}</span>
-        <div>
-          <h3 className="font-heading font-extrabold text-3xl sm:text-4xl lg:text-[2.6rem]
-                         leading-[1.06] tracking-[-0.03em] text-ink">
-            {group.title}
-          </h3>
-          <p className="text-muted mt-4 max-w-md leading-relaxed">{group.description}</p>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start py-12">
+        {/* Left: number + title + description */}
+        <div className="lg:col-span-6 flex gap-5">
+          <span className="font-mono text-xs text-accent pt-2.5 shrink-0">{group.number}</span>
+          <div>
+            <h3 className="font-heading font-extrabold text-3xl sm:text-4xl lg:text-[2.6rem]
+                           leading-[1.06] tracking-[-0.03em] text-ink">
+              {group.title}
+            </h3>
+            <p className="text-muted mt-4 max-w-md leading-relaxed">{group.description}</p>
+          </div>
+        </div>
+
+        {/* Right: the logos themselves */}
+        <div className="lg:col-span-6 flex flex-wrap gap-3 lg:justify-end">
+          {group.items.map((item) => (
+            <Tile key={item.label} item={item} />
+          ))}
         </div>
       </div>
-
-      {/* Right: the logos themselves */}
-      <div className="lg:col-span-6 flex flex-wrap gap-3 lg:justify-end">
-        {group.items.map((item) => (
-          <Tile key={item.label} item={item} />
-        ))}
-      </div>
-    </div>
+    </EdgeMarquee>
   )
 }
 
@@ -49,18 +79,19 @@ export default function Skills() {
   return (
     <section id="skills" className="py-28 px-6 border-t border-line">
       <div className="max-w-6xl mx-auto">
-        <div className="reveal mb-16 max-w-2xl">
+        <div className="reveal mb-10 max-w-2xl">
           <div className="eyebrow">Tech Stack</div>
           <h2 className="h-display text-4xl sm:text-5xl text-ink">
             The tools I actually <span className="serif-em">reach for.</span>
           </h2>
           <p className="text-muted mt-5 leading-relaxed">
             Not a logo wall of everything I have ever opened — five areas, and the specific
-            things I work in every week.
+            things I work in every week. Hover a row to bring it forward.
           </p>
         </div>
 
-        <div>
+        {/* The rows animate on hover, so they opt out of the scroll-reveal fade */}
+        <div className="reveal">
           {techStack.map((group) => (
             <StackGroup key={group.number} group={group} />
           ))}
