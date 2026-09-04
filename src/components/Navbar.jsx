@@ -1,6 +1,19 @@
 import { useState, useEffect } from 'react'
 import { Icon } from './Icons'
 
+// Served straight out of /public, so the path is stable in dev and on Vercel —
+// and same-origin, which is what makes the `download` attribute take effect.
+const RESUME_FILE = 'John_Benedict_Santos_Resume.pdf'
+const RESUME_URL = `/${RESUME_FILE}`
+
+function DownloadIcon() {
+  return (
+    <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 shrink-0" aria-hidden="true">
+      <path fillRule="evenodd" d="M10 2.5a.75.75 0 01.75.75v7.44l2.22-2.22a.75.75 0 111.06 1.06l-3.5 3.5a.75.75 0 01-1.06 0l-3.5-3.5a.75.75 0 111.06-1.06l2.22 2.22V3.25A.75.75 0 0110 2.5zM3.75 14a.75.75 0 01.75.75v1.5h11v-1.5a.75.75 0 011.5 0v2.25a.75.75 0 01-.75.75H3.75a.75.75 0 01-.75-.75V14.75A.75.75 0 013.75 14z" clipRule="evenodd" />
+    </svg>
+  )
+}
+
 const links = [
   { label: 'Work',     href: '/#work',       id: 'work'       },
   { label: 'Services', href: '/#services',   id: 'services'   },
@@ -49,14 +62,10 @@ export default function Navbar() {
     >
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
         {/* Logo */}
-        <a href="/#hero" className="flex items-center gap-2.5 shrink-0" aria-label="John Benedict Santos — home">
-          <span className="w-8 h-8 rounded-lg border border-accent/30 bg-accent/10 flex items-center justify-center
-                           font-mono text-[0.7rem] text-accentT">
-            JB
-          </span>
-          <span className="hidden sm:block font-mono text-[0.66rem] tracking-[0.14em] uppercase text-muted leading-tight">
-            John B. Santos
-            <span className="block text-faint">Full Stack Developer</span>
+        <a href="/#hero" className="flex items-center shrink-0" aria-label="Mr. Santos — home">
+          <span className="font-mono font-bold text-[0.82rem] tracking-[0.1em] uppercase
+                           text-ink leading-tight">
+            Mr. Santos
           </span>
         </a>
 
@@ -74,9 +83,15 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Desktop CTA */}
-        <a href="/#contact" className="btn-accent hidden lg:inline-flex !py-2.5 !px-5">
-          Let&apos;s talk
+        {/* Desktop resume download */}
+        <a
+          href={RESUME_URL}
+          download={RESUME_FILE}
+          className="btn-accent hidden lg:inline-flex !py-2.5 !px-5 shrink-0"
+          aria-label="Download resume (PDF)"
+        >
+          <DownloadIcon />
+          Resume
         </a>
 
         {/* Mobile toggle */}
@@ -104,8 +119,15 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
-          <a href="/#contact" className="btn-accent w-full justify-center mt-1" onClick={close}>
-            Let&apos;s talk
+          <a
+            href={RESUME_URL}
+            download={RESUME_FILE}
+            className="btn-accent w-full justify-center mt-1"
+            aria-label="Download resume (PDF)"
+            onClick={close}
+          >
+            <DownloadIcon />
+            Resume
           </a>
         </div>
       )}
