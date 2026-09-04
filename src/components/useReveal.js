@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useAppReady } from './appReady'
 
 /**
  * Fades `.reveal` sections and `.reveal-item` children in as they enter view.
@@ -7,9 +8,17 @@ import { useEffect } from 'react'
  * rendered after mount — the work grid re-rendering when a category filter is
  * clicked, for instance — arrives as a brand-new element the IntersectionObservers
  * were never told about, so it stays at opacity-0 and looks like an empty tab.
+ *
+ * Nothing is observed until the loading curtain has lifted, so the sections
+ * already in the viewport fade in for the viewer rather than behind the
+ * overlay.
  */
 export function useReveal() {
+  const ready = useAppReady()
+
   useEffect(() => {
+    if (!ready) return
+
     const makeObserver = (threshold, rootMargin) =>
       new IntersectionObserver(
         (entries, obs) => {
@@ -49,5 +58,5 @@ export function useReveal() {
       itemObs.disconnect()
       mutations.disconnect()
     }
-  }, [])
+  }, [ready])
 }

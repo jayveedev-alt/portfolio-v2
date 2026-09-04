@@ -3,12 +3,14 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import AskBot from './components/AskBot'
+import Loader from './components/Loader'
 import Home from './pages/Home'
 import ProjectDetail from './pages/ProjectDetail'
 
 export default function App() {
   return (
     <>
+      <Loader />
       <ScrollToTop />
       <Navbar />
       <Routes>

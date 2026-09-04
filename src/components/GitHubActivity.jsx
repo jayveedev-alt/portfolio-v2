@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Icon } from './Icons'
 import { useCountUp } from './useCountUp'
+import { useAppReady } from './appReady'
 
 const PROFILE_URL = 'https://github.com/jayveedev-alt'
 
@@ -50,10 +51,11 @@ function Heatmap({ days }) {
   // 'idle' before the first view, then 'in' / 'out' as the grid enters and
   // leaves — so the sweep replays instead of firing once and staying put.
   const [phase, setPhase] = useState('idle')
+  const ready = useAppReady()
 
   useEffect(() => {
     const el = gridRef.current
-    if (!el) return
+    if (!el || !ready) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       setPhase('in')
       return
@@ -64,7 +66,7 @@ function Heatmap({ days }) {
     )
     observer.observe(el)
     return () => observer.disconnect()
-  }, [])
+  }, [ready])
 
   // Longest delay in the diagonal sweep, used to run the exit in reverse
   const maxDelay = (weeks.length - 1 + 6) * 11

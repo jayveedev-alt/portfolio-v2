@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useAppReady } from './appReady'
 
 /**
  * Counts from 0 up to `target` when the element scrolls into view, and back
@@ -13,10 +14,11 @@ export function useCountUp(target, { duration = 1600, threshold = 0.4 } = {}) {
   const frame = useRef(null)
   const current = useRef(0)
   const [value, setValue] = useState(0)
+  const ready = useAppReady()
 
   useEffect(() => {
     const el = ref.current
-    if (!el) return
+    if (!el || !ready) return
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       current.current = target
@@ -56,7 +58,7 @@ export function useCountUp(target, { duration = 1600, threshold = 0.4 } = {}) {
       observer.disconnect()
       cancelAnimationFrame(frame.current)
     }
-  }, [target, duration, threshold])
+  }, [target, duration, threshold, ready])
 
   return [ref, value]
 }

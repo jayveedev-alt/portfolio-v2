@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useAppReady } from './appReady'
 
 /**
  * Shared roaming logic for the decorative hero cursors.
@@ -8,20 +9,23 @@ import { useEffect, useState } from 'react'
  * `holdMs`. Returns the current stop's cursor point *and* its box, so a caller
  * can draw either a pointer or a selection outline.
  *
- * Disabled without hover support or under prefers-reduced-motion.
+ * Disabled without hover support, under prefers-reduced-motion, or while the
+ * loading curtain is still up.
  */
 export function useRoamingStops(hostRef, attr, { hopMs = 1100, holdMs = 950 } = {}) {
   const [enabled, setEnabled] = useState(false)
   const [stops, setStops] = useState([])
   const [index, setIndex] = useState(0)
   const [arrived, setArrived] = useState(false)
+  const ready = useAppReady()
 
   useEffect(() => {
     setEnabled(
+      ready &&
       window.matchMedia('(hover: hover)').matches &&
       !window.matchMedia('(prefers-reduced-motion: reduce)').matches
     )
-  }, [])
+  }, [ready])
 
   useEffect(() => {
     const host = hostRef.current
