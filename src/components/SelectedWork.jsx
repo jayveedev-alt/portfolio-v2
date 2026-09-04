@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { workItems, categories } from '../data/work'
 import WorkThumb from './WorkThumb'
@@ -45,9 +45,28 @@ function WorkCard({ item }) {
   )
 }
 
+const INITIAL_COUNT = 6
+
 export default function SelectedWork() {
   const [active, setActive] = useState('all')
-  const shown = active === 'all' ? workItems : workItems.filter((w) => w.category === active)
+  const [expanded, setExpanded] = useState(false)
+  const gridRef = useRef(null)
+
+  const matching = active === 'all' ? workItems : workItems.filter((w) => w.category === active)
+  const shown = expanded ? matching : matching.slice(0, INITIAL_COUNT)
+  const hidden = matching.length - shown.length
+
+  const pickCategory = (id) => {
+    setActive(id)
+    setExpanded(false)   // a fresh filter starts collapsed
+  }
+
+  const collapse = () => {
+    setExpanded(false)
+    // Collapsing removes rows below the fold, which would otherwise leave the
+    // reader standing in the next section.
+    gridRef.current?.scrollIntoView({ block: 'start', behavior: 'smooth' })
+  }
 
   return (
     <section id="work" className="py-28 px-6">
@@ -82,7 +101,7 @@ export default function SelectedWork() {
                 type="button"
                 role="tab"
                 aria-selected={isActive}
-                onClick={() => setActive(c.id)}
+                onClick={() => pickCategory(c.id)}
                 className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer
                             ${isActive
                               ? 'bg-accent text-onAccent'
@@ -95,11 +114,29 @@ export default function SelectedWork() {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 scroll-mt-28">
           {shown.map((item) => (
             <WorkCard key={item.slug} item={item} />
           ))}
         </div>
+
+        {matching.length > INITIAL_COUNT && (
+          <div className="flex justify-center mt-12">
+            <button
+              type="button"
+              onClick={expanded ? collapse : () => setExpanded(true)}
+              className="btn-ghost"
+              aria-expanded={expanded}
+            >
+              {expanded ? 'See less' : `See more (${hidden})`}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
+                className={`w-4 h-4 transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`}
+                aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
+          </div>
+        )}
       </div>
     </section>
   )
