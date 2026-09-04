@@ -21,11 +21,13 @@ export default function Home() {
       <Marquee />
       <SelectedWork />
       {/* Two stacking stages, chained by nesting: What I Can Do pins and blurs
-          while How I Work covers it; How I Work then pins (no blur) and lights
-          its four phase cards while Tech Stack covers it. */}
+          while How I Work covers it; How I Work then pins, fills its four phase
+          cards over a runway, and only then blurs as Tech Stack covers it. */}
       <ScrollStack>
         <WhatIDo />
-        <ScrollStack blur={false} hold={1.1}>
+        {/* blur defaults on: coverProgress stays at 0 for the whole runway, so
+            the cards fill sharp and the blur only starts once Tech Stack rises */}
+        <ScrollStack hold={1.1}>
           <Process />
           <Skills />
         </ScrollStack>
