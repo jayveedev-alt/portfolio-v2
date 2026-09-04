@@ -75,8 +75,18 @@ function AbstractThumb({ thumb }) {
  * space); `fit="crop"` keeps the height from `className` so a card grid stays
  * on one baseline.
  */
-export default function WorkThumb({ thumb, className = 'h-[220px]', fit = 'crop', targetWidth = 1200 }) {
+export default function WorkThumb({ thumb, image, className = 'h-[220px]', fit = 'crop', targetWidth = 1200 }) {
   const Mock = MOCKS[thumb]
+
+  // A supplied screenshot wins over any mockup. 16:10 matches the card's own
+  // proportions closely, so cropping is minimal at either size.
+  if (image) {
+    return (
+      <div className={`relative overflow-hidden bg-raised ${fit === 'auto' ? 'aspect-[16/10]' : className}`}>
+        <img src={image} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+      </div>
+    )
+  }
   const boxRef = useRef(null)
   const innerRef = useRef(null)
   const [{ scale, height }, setBox] = useState({ scale: 0.35, height: null })

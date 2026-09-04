@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Icon } from './Icons'
 import { useCountUp } from './useCountUp'
 
@@ -46,6 +46,29 @@ function StatTile({ icon, value, suffix = '', label }) {
 
 function Heatmap({ days }) {
   const weeks = chunkIntoWeeks(days)
+  const gridRef = useRef(null)
+  const [sweep, setSweep] = useState(false)
+
+  // Hold the cells back until the grid is actually on screen, otherwise the
+  // whole sweep plays while the section is still below the fold.
+  useEffect(() => {
+    const el = gridRef.current
+    if (!el) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setSweep(true)
+      return
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        observer.disconnect()
+        setSweep(true)
+      },
+      { threshold: 0.15 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   // Label a column when its week opens a month the previous week did not
   const monthLabels = weeks.map((week, i) => {
@@ -56,7 +79,7 @@ function Heatmap({ days }) {
   })
 
   return (
-    <div className="overflow-x-auto pb-1">
+    <div ref={gridRef} className="overflow-x-auto pb-1">
       <div className="min-w-max">
         {/* Month row */}
         <div className="flex gap-[3px] mb-2 h-4">
@@ -73,14 +96,20 @@ function Heatmap({ days }) {
 
         {/* Day grid — one column per week, Sunday at the top */}
         <div className="flex gap-[3px]">
-          {weeks.map((week) => (
+          {weeks.map((week, w) => (
             <div key={week[0].date} className="flex flex-col gap-[3px]">
-              {week.map((day) => (
+              {week.map((day, d) => (
                 <div
                   key={day.date}
                   title={`${day.count} contribution${day.count === 1 ? '' : 's'} on ${formatDate(day.date)}`}
-                  className="w-[11px] h-[11px] rounded-[2px]"
-                  style={{ backgroundColor: LEVEL_BG[day.level] }}
+                  className={`w-[11px] h-[11px] rounded-[2px] ${sweep ? 'heat-cell' : ''}`}
+                  style={{
+                    backgroundColor: LEVEL_BG[day.level],
+                    // Column + row, so the sweep runs on a diagonal rather than
+                    // finishing one whole week before starting the next
+                    animationDelay: sweep ? `${(w + d) * 11}ms` : undefined,
+                    opacity: sweep ? undefined : 0,
+                  }}
                 />
               ))}
             </div>

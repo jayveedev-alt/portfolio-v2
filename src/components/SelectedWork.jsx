@@ -15,7 +15,7 @@ function WorkCard({ item }) {
   return (
     <article className="reveal-item card card-hover overflow-hidden flex flex-col group">
       <Link to={`/work/${item.slug}`} className="block" aria-label={`${item.title} — view project`}>
-        <WorkThumb thumb={item.thumb} />
+        <WorkThumb thumb={item.thumb} image={item.image} />
       </Link>
 
       <div className="p-7 flex flex-col flex-1">
@@ -59,16 +59,16 @@ export default function SelectedWork() {
           </span>
 
           <h2 className="h-display text-4xl sm:text-5xl lg:text-[3.4rem] text-ink">
-            {workItems.length === 1 ? 'One build,' : `${workItems.length} builds,`}
+            Real builds,
             <br />
-            every one still live.
+            every one shipped.
           </h2>
 
           <p className="text-muted mt-6 leading-relaxed">
-            Security tooling, a multi-branch laundry SaaS, a productivity app and this site
-            itself. Every one has a{' '}
-            <span className="text-accentT">full case study</span> with the real interface and
-            a link to the live build.
+            Security tooling, SaaS platforms, an AI-assisted service portal, mobile apps and
+            commerce work. Every one has a{' '}
+            <span className="text-accentT">full case study</span> with the real interface,
+            and a link to the live build where there is one.
           </p>
         </div>
 

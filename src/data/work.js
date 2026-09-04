@@ -1,20 +1,28 @@
-import { projects } from './projects'
+import projectsData from './projects.json'
 import { caseStudies } from './caseStudies'
 
 /**
- * One list for the work grid and the /work/:slug pages. `projects.js` stays the
- * editable source of truth; a project that also has a deep dive in
- * `caseStudies.js` gets it attached as `study`.
+ * One list for the work grid and the /work/:slug pages. `projects.json` is the
+ * editable source of truth — plain JSON so entries can be added without
+ * touching any code. A project that also has a deep dive in `caseStudies.js`
+ * gets it attached as `study`.
+ *
+ * JSON has no comments, so an unfinished entry is hidden with `"draft": true`
+ * rather than being commented out.
  */
 const studyBySlug = Object.fromEntries(caseStudies.map((c) => [c.id, c]))
 
-export const workItems = projects.map((p) => ({ ...p, study: studyBySlug[p.slug] ?? null }))
+export const workItems = projectsData
+  .filter((p) => !p.draft)
+  .map((p) => ({ ...p, study: studyBySlug[p.slug] ?? null }))
 
 const ALL_CATEGORIES = [
-  { id: 'all',       label: 'All projects' },
-  { id: 'systems',   label: 'Systems & platforms' },
-  { id: 'webapps',   label: 'Web apps' },
-  { id: 'marketing', label: 'Marketing sites' },
+  { id: 'all',        label: 'All projects' },
+  { id: 'systems',    label: 'Systems & platforms' },
+  { id: 'mobile',     label: 'Mobile apps' },
+  { id: 'ecommerce',  label: 'E-commerce' },
+  { id: 'webapps',    label: 'Web apps' },
+  { id: 'marketing',  label: 'Marketing sites' },
 ]
 
 // A pill with nothing behind it is a dead end, so only keep the ones in use.
