@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Icon } from './Icons'
+import { useCountUp } from './useCountUp'
 
 const PROFILE_URL = 'https://github.com/jayveedev-alt'
 
@@ -25,11 +26,19 @@ function formatDate(iso) {
   return `${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`
 }
 
-function StatTile({ icon, value, label }) {
+function StatTile({ icon, value, suffix = '', label }) {
+  const [ref, shown] = useCountUp(value)
+
   return (
-    <div className="mock-tile !px-5 !py-4">
+    <div ref={ref} className="mock-tile !px-5 !py-4">
       <Icon name={icon} className="w-4 h-4" color="currentColor" />
-      <div className="font-mono font-medium text-xl sm:text-2xl text-ink mt-3">{value}</div>
+      <div
+        className="font-mono font-medium text-xl sm:text-2xl text-ink mt-3 tabular-nums"
+        // Reserve the settled width so counting 0 → 1393 does not shift the tile
+        style={{ minWidth: `${String(value).length + suffix.length}ch` }}
+      >
+        {shown.toLocaleString()}{suffix}
+      </div>
       <div className="mock-label mt-1.5">{label}</div>
     </div>
   )
@@ -164,7 +173,8 @@ export default function GitHubActivity() {
                 <StatTile icon="calendar" value={data.stats.activeDays} label="Days with commits" />
                 <StatTile
                   icon="bolt"
-                  value={`${data.stats.longestStreak} ${data.stats.longestStreak === 1 ? 'day' : 'days'}`}
+                  value={data.stats.longestStreak}
+                  suffix={data.stats.longestStreak === 1 ? ' day' : ' days'}
                   label="Longest streak"
                 />
                 <StatTile icon="bar-chart" value={data.stats.busiestDay} label="Busiest single day" />

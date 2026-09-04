@@ -2,6 +2,7 @@ import Hero from '../components/Hero'
 import Marquee from '../components/Marquee'
 import SelectedWork from '../components/SelectedWork'
 import WhatIDo from '../components/WhatIDo'
+import ScrollStack from '../components/ScrollStack'
 import Process from '../components/Process'
 import Skills from '../components/Skills'
 // import Experience from '../components/Experience'   // section disabled
@@ -19,8 +20,11 @@ export default function Home() {
       <Hero />
       <Marquee />
       <SelectedWork />
-      <WhatIDo />
-      <Process />
+      {/* What I Can Do pins and blurs while How I Work scrolls over it */}
+      <ScrollStack>
+        <WhatIDo />
+        <Process />
+      </ScrollStack>
       <Skills />
       {/* <Experience /> */}
       <GitHubActivity />
