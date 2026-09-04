@@ -71,34 +71,44 @@ function CtaCell({ label, href }) {
   return (
     <a
       href={href}
-      className="reveal-item group flex items-center justify-center py-6
+      className="reveal-item flex items-center justify-center py-6
                  lg:min-h-[19rem] cursor-pointer"
     >
-      {/* Rests as plain text beside a blue disc. On hover the two collapse into a
-          single solid pill: the disc loses its own fill and the pill picks it up,
-          so the arrow reads as sitting inside the button. The cell is much taller
-          than the control and centres it, so the size change shifts nothing. */}
-      <span
-        className="flex items-center rounded-full gap-5 px-0 py-0
-                   transition-all duration-300 ease-out
-                   group-hover:gap-6 group-hover:bg-accent
-                   group-hover:pl-8 group-hover:pr-7 group-hover:py-[1.375rem]"
-      >
+      <span className="relative flex items-center h-14 pl-8 gap-6">
+        {/* The hover target is the disc alone. It is layered on top of the fill
+            and never changes size, so the pointer stays inside it for the whole
+            expansion — hovering the label does nothing, and there is no
+            collapse-flicker once the fill has grown past the cursor. */}
         <span
-          className="font-heading font-medium text-lg text-ink whitespace-nowrap
-                     transition-colors duration-300 ease-out group-hover:text-onAccent"
-        >
-          {label}
-        </span>
-        <span
-          className="w-14 h-14 rounded-full bg-accent flex items-center justify-center shrink-0
-                     transition-all duration-300 ease-out
-                     group-hover:w-5 group-hover:h-5 group-hover:bg-transparent"
+          className="peer absolute right-0 top-0 z-20 w-14 h-14 rounded-full
+                     flex items-center justify-center"
         >
           <svg viewBox="0 0 20 20" fill="#ffffff" className="w-5 h-5 shrink-0" aria-hidden="true">
             <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
           </svg>
         </span>
+
+        {/* The fill. Pinned to the right edge and stretched top-to-bottom, so at
+            rest its 3.5rem width makes it exactly the disc behind the arrow. On
+            hover only its left edge travels, out to the start of the label —
+            the disc grows into the button rather than a pill fading in. */}
+        <span
+          aria-hidden="true"
+          className="absolute top-0 bottom-0 right-0 z-0 rounded-full bg-accent
+                     left-[calc(100%-3.5rem)] peer-hover:left-0
+                     transition-[left] duration-500 ease-out"
+        />
+
+        <span
+          className="relative z-10 font-heading font-medium text-lg text-ink whitespace-nowrap
+                     transition-colors duration-300 ease-out peer-hover:text-onAccent"
+        >
+          {label}
+        </span>
+
+        {/* Holds the disc's width open in the flex row, since the disc itself is
+            positioned out of flow. */}
+        <span aria-hidden="true" className="w-14 shrink-0" />
       </span>
     </a>
   )
