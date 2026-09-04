@@ -47,28 +47,27 @@ function StatTile({ icon, value, suffix = '', label }) {
 function Heatmap({ days }) {
   const weeks = chunkIntoWeeks(days)
   const gridRef = useRef(null)
-  const [sweep, setSweep] = useState(false)
+  // 'idle' before the first view, then 'in' / 'out' as the grid enters and
+  // leaves — so the sweep replays instead of firing once and staying put.
+  const [phase, setPhase] = useState('idle')
 
-  // Hold the cells back until the grid is actually on screen, otherwise the
-  // whole sweep plays while the section is still below the fold.
   useEffect(() => {
     const el = gridRef.current
     if (!el) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setSweep(true)
+      setPhase('in')
       return
     }
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return
-        observer.disconnect()
-        setSweep(true)
-      },
+      ([entry]) => setPhase((prev) => (entry.isIntersecting ? 'in' : prev === 'idle' ? 'idle' : 'out')),
       { threshold: 0.15 }
     )
     observer.observe(el)
     return () => observer.disconnect()
   }, [])
+
+  // Longest delay in the diagonal sweep, used to run the exit in reverse
+  const maxDelay = (weeks.length - 1 + 6) * 11
 
   // Label a column when its week opens a month the previous week did not
   const monthLabels = weeks.map((week, i) => {
@@ -102,13 +101,20 @@ function Heatmap({ days }) {
                 <div
                   key={day.date}
                   title={`${day.count} contribution${day.count === 1 ? '' : 's'} on ${formatDate(day.date)}`}
-                  className={`w-[11px] h-[11px] rounded-[2px] ${sweep ? 'heat-cell' : ''}`}
+                  className={`w-[11px] h-[11px] rounded-[2px]
+                              ${phase === 'in' ? 'heat-cell' : ''}
+                              ${phase === 'out' ? 'heat-cell-out' : ''}`}
                   style={{
                     backgroundColor: LEVEL_BG[day.level],
                     // Column + row, so the sweep runs on a diagonal rather than
-                    // finishing one whole week before starting the next
-                    animationDelay: sweep ? `${(w + d) * 11}ms` : undefined,
-                    opacity: sweep ? undefined : 0,
+                    // finishing one whole week before starting the next. Going
+                    // out, the delay is mirrored so the last cell in is the
+                    // first cell out.
+                    animationDelay:
+                      phase === 'in' ? `${(w + d) * 11}ms`
+                      : phase === 'out' ? `${maxDelay - (w + d) * 11}ms`
+                      : undefined,
+                    opacity: phase === 'idle' ? 0 : undefined,
                   }}
                 />
               ))}

@@ -106,7 +106,7 @@ export default function Footer() {
             fontSize: 'calc((100vw - 3rem) * 0.118)',
           }}
         >
-          Benedict Santos
+          Mr Santos
         </div>
       </div>
       <span className="sr-only">John Benedict Santos</span>
