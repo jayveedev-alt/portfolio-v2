@@ -32,7 +32,57 @@ export default function Contact() {
   const [loading, setLoading] = useState(false)
   const [cooldown, setCooldown] = useState(0)
   const [copied, setCopied] = useState(false)
+  const [flooded, setFlooded] = useState(false)
   const cooldownRef = useRef(null)
+  const sectionRef = useRef(null)
+  const fillRef = useRef(null)
+  const originRef = useRef({ x: 0, y: 0 })
+
+  // The clip-path is written straight to the DOM: two React updates in one
+  // handler get batched into a single commit, so the browser never resolves the
+  // zero-radius start and the section would snap to blue instead of filling.
+  function paint(radius, x, y, ms) {
+    const fill = fillRef.current
+    if (!fill) return
+    fill.style.transition = `clip-path ${ms}ms cubic-bezier(0.4, 0, 0.2, 1)`
+    fill.style.clipPath = `circle(${radius}px at ${x}px ${y}px)`
+  }
+
+  function fillFromCursor(event) {
+    const box = sectionRef.current.getBoundingClientRect()
+    const x = Math.round(event.clientX - box.left)
+    const y = Math.round(event.clientY - box.top)
+    originRef.current = { x, y }
+
+    const fill = fillRef.current
+    fill.style.transition = 'none'
+    fill.style.clipPath = `circle(0px at ${x}px ${y}px)`
+    void fill.offsetWidth   // resolve the jump before the growth starts
+    // A section-sized circle needs longer than a card's; the diagonal reaches
+    // every corner from any interior point.
+    paint(Math.ceil(Math.hypot(box.width, box.height)), x, y, 900)
+    setFlooded(true)
+  }
+
+  function drainFill() {
+    const { x, y } = originRef.current
+    paint(0, x, y, 700)
+    setFlooded(false)
+  }
+
+  // Scrolling out counts as leaving too — the pointer can stay inside the
+  // section the whole time the wheel carries it off screen, so mouseleave
+  // never fires and the blue would be left stranded.
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (!entry.isIntersecting) drainFill() },
+      { threshold: 0.05 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   async function copyEmail() {
     try {
@@ -116,29 +166,51 @@ export default function Contact() {
   const isDisabled = loading || cooldown > 0
 
   return (
-    <section id="contact" className="py-28 px-6 border-t border-line">
-      <div className="max-w-6xl mx-auto">
+    <section
+      id="contact"
+      ref={sectionRef}
+      onMouseEnter={fillFromCursor}
+      onMouseLeave={drainFill}
+      className="relative overflow-hidden py-28 px-6 border-t border-line"
+    >
+      {/*
+        The fill sits BEHIND the content rather than being a clipped duplicate
+        of it. Duplicating a section that holds a Calendly iframe and a form
+        would mean two iframes, two forms and two sets of field ids — and the
+        copy on top would swallow every click. The panels keep their own white
+        backgrounds, so they stay readable as the ground turns blue; only the
+        header text has to flip.
+      */}
+      <span
+        ref={fillRef}
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-accent"
+        style={{ clipPath: 'circle(0px at 50% 50%)' }}
+      />
+
+      <div className="relative max-w-6xl mx-auto">
 
         {/* Heading — the page's single closing CTA now */}
         <div className="reveal mb-14 text-center">
-          <div className="eyebrow-center">Ready When You Are</div>
-          <h2 className="h-display text-4xl sm:text-5xl lg:text-6xl text-ink">
+          <div className={`eyebrow-center transition-colors duration-500 ${flooded ? '!text-onAccent' : ''}`}>Ready When You Are</div>
+          <h2 className={`h-display text-4xl sm:text-5xl lg:text-6xl transition-colors duration-500 ${flooded ? 'text-onAccent' : 'text-ink'}`}>
             Have a project in mind?<br />
-            <span className="accent-em">Let&apos;s talk.</span>
+            <span className={`accent-em transition-colors duration-500 ${flooded ? '!text-onAccent' : ''}`}>Let&apos;s talk.</span>
           </h2>
-          <p className="text-muted mt-6 max-w-xl mx-auto leading-relaxed">
+          <p className={`mt-6 max-w-xl mx-auto leading-relaxed transition-colors duration-500 ${flooded ? 'text-onAccent/80' : 'text-muted'}`}>
             A high-end landing page, a rebuild with real motion, or a working SaaS product.
             Pick a time below, or drop me a note — I reply within 24 hours.
           </p>
 
           {/* Email + copy, carried over from the removed banner */}
           <div className="hidden inline-flex items-center gap-3 px-5 py-2.5 mt-8 rounded-full border border-line bg-card">
-            <span className="font-mono text-xs text-muted">{EMAIL}</span>
+            <span className={`font-mono text-xs transition-colors duration-500 ${flooded ? 'text-onAccent/80' : 'text-muted'}`}>{EMAIL}</span>
             <span className="w-px h-4 bg-line2" />
             <button
               type="button"
               onClick={copyEmail}
-              className="font-mono text-xs text-accentT hover:text-ink transition-colors cursor-pointer"
+              className={`font-mono text-xs transition-colors cursor-pointer
+                          ${flooded ? 'text-onAccent hover:text-onAccent/70' : 'text-accentT hover:text-ink'}`}
             >
               {copied ? 'Copied ✓' : 'Copy'}
             </button>
