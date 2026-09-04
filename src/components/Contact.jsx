@@ -241,7 +241,7 @@ export default function Contact() {
         </div>
 
         {/* Calendly + form */}
-        <div className="hidden reveal grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className=" reveal grid grid-cols-1 lg:grid-cols-2 gap-6">
 
           {/* Calendly */}
           <div className="card overflow-hidden flex flex-col">
