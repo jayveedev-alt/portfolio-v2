@@ -10,6 +10,7 @@ const quickLinks = [
   { label: 'GitHub',   value: '@jayveedev-alt',          icon: 'github',   href: 'https://github.com/jayveedev-alt' },
 ]
 
+const EMAIL = 'jayveedev.alt@gmail.com'
 const COOLDOWN_SECONDS = 60
 
 function validate(fields) {
@@ -30,7 +31,18 @@ export default function Contact() {
   const [status, setStatus] = useState(null) // 'success' | 'error'
   const [loading, setLoading] = useState(false)
   const [cooldown, setCooldown] = useState(0)
+  const [copied, setCopied] = useState(false)
   const cooldownRef = useRef(null)
+
+  async function copyEmail() {
+    try {
+      await navigator.clipboard.writeText(EMAIL)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      // Clipboard blocked (insecure origin or denied) — the address is still readable
+    }
+  }
 
   useEffect(() => {
     if (document.querySelector('script[data-calendly]')) return
@@ -107,15 +119,30 @@ export default function Contact() {
     <section id="contact" className="py-28 px-6 border-t border-line">
       <div className="max-w-6xl mx-auto">
 
-        {/* Heading */}
+        {/* Heading — the page's single closing CTA now */}
         <div className="reveal mb-14 text-center">
-          <div className="eyebrow-center">Get In Touch</div>
-          <h2 className="h-display text-4xl sm:text-5xl text-ink">
-            Book a call or <span className="accent-em">send a message.</span>
+          <div className="eyebrow-center">Ready When You Are</div>
+          <h2 className="h-display text-4xl sm:text-5xl lg:text-6xl text-ink">
+            Have a project in mind?<br />
+            <span className="accent-em">Let&apos;s talk.</span>
           </h2>
-          <p className="text-muted mt-5 max-w-xl mx-auto leading-relaxed">
-            Pick a time that works for you, or drop me a note below. I reply within 24 hours.
+          <p className="text-muted mt-6 max-w-xl mx-auto leading-relaxed">
+            A high-end landing page, a rebuild with real motion, or a working SaaS product.
+            Pick a time below, or drop me a note — I reply within 24 hours.
           </p>
+
+          {/* Email + copy, carried over from the removed banner */}
+          <div className="hidden inline-flex items-center gap-3 px-5 py-2.5 mt-8 rounded-full border border-line bg-card">
+            <span className="font-mono text-xs text-muted">{EMAIL}</span>
+            <span className="w-px h-4 bg-line2" />
+            <button
+              type="button"
+              onClick={copyEmail}
+              className="font-mono text-xs text-accentT hover:text-ink transition-colors cursor-pointer"
+            >
+              {copied ? 'Copied ✓' : 'Copy'}
+            </button>
+          </div>
         </div>
 
         {/* Quick links */}
@@ -142,7 +169,7 @@ export default function Contact() {
         </div>
 
         {/* Calendly + form */}
-        <div className="reveal grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="hidden reveal grid grid-cols-1 lg:grid-cols-2 gap-6">
 
           {/* Calendly */}
           <div className="card overflow-hidden flex flex-col">

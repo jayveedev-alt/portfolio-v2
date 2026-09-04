@@ -8,7 +8,6 @@ import Skills from '../components/Skills'
 // import Experience from '../components/Experience'   // section disabled
 import GitHubActivity from '../components/GitHubActivity'
 import Faq from '../components/Faq'
-import CtaBanner from '../components/CtaBanner'
 import Contact from '../components/Contact'
 import { useReveal } from '../components/useReveal'
 
@@ -35,7 +34,6 @@ export default function Home() {
       {/* <Experience /> */}
       <GitHubActivity />
       <Faq />
-      <CtaBanner />
       <Contact />
     </main>
   )
