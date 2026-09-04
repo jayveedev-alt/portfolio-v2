@@ -1,12 +1,36 @@
+import { useRef } from 'react'
+import PointerCue from './PointerCue'
+import { useCountUp } from './useCountUp'
+
 const stats = [
-  { value: '7+',  label: 'Years Experience' },
-  { value: '18+', label: 'Projects Shipped' },
-  { value: '9+',  label: 'Happy Clients' },
+  { value: 7,  suffix: '+', label: 'Years Experience' },
+  { value: 18, suffix: '+', label: 'Projects Shipped' },
+  { value: 9,  suffix: '+', label: 'Happy Clients' },
 ]
 
+function Stat({ value, suffix, label }) {
+  const [ref, shown] = useCountUp(value)
+
+  return (
+    <div ref={ref}>
+      <div
+        className="font-mono font-medium text-2xl sm:text-3xl text-ink tabular-nums"
+        // Reserve the final width so counting 0 → 18 does not shift the row
+        style={{ minWidth: `${String(value).length + suffix.length}ch` }}
+      >
+        {shown}{suffix}
+      </div>
+      <div className="mock-label mt-1.5">{label}</div>
+    </div>
+  )
+}
+
 export default function Hero() {
+  const hostRef = useRef(null)
+
   return (
     <section
+      ref={hostRef}
       id="hero"
       className="relative min-h-screen flex items-center pt-32 pb-24 px-6 overflow-hidden"
     >
@@ -48,25 +72,25 @@ export default function Hero() {
 
         {/* ── Headline ── */}
         <h1 className="h-display text-[2.75rem] sm:text-6xl lg:text-7xl xl:text-[5.25rem] text-ink max-w-5xl mb-8">
-          Web applications engineered to a{' '}
-          <span className="accent-em">production standard.</span>
+          Web and mobile apps engineered to a{' '}
+          <span data-cue="1" className="accent-em">production standard.</span>
         </h1>
 
         <p className="text-muted text-base sm:text-lg leading-relaxed max-w-2xl mb-10">
-          I build the whole thing — interface, API, database, deploy. Seven years turning
-          messy requirements into clean, scalable products that hold up once real users
-          arrive.
+          I build the whole thing — web app, mobile app, API, database, deploy. Seven
+          years turning messy requirements into clean, scalable products that hold up
+          once real users arrive.
         </p>
 
         {/* ── CTAs ── */}
         <div className="flex flex-wrap gap-3 mb-16">
-          <a href="#work" className="btn-accent">
+          <a href="#work" data-cue="2" className="btn-accent">
             View case studies
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
               <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
             </svg>
           </a>
-          <a href="#contact" className="btn-ghost">
+          <a href="#contact" data-cue="3" className="btn-ghost">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
               <path fillRule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clipRule="evenodd" />
             </svg>
@@ -77,13 +101,12 @@ export default function Hero() {
         {/* ── Stats ── */}
         <div className="flex flex-wrap gap-x-12 gap-y-6 pt-10 border-t border-line max-w-2xl">
           {stats.map((s) => (
-            <div key={s.label}>
-              <div className="font-mono font-medium text-2xl sm:text-3xl text-ink">{s.value}</div>
-              <div className="mock-label mt-1.5">{s.label}</div>
-            </div>
+            <Stat key={s.label} value={s.value} suffix={s.suffix} label={s.label} />
           ))}
         </div>
       </div>
+
+      <PointerCue hostRef={hostRef} />
 
       {/* ── Scroll cue ── */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2">
