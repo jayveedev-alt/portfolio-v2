@@ -20,12 +20,16 @@ export default function Home() {
       <Hero />
       <Marquee />
       <SelectedWork />
-      {/* What I Can Do pins and blurs while How I Work scrolls over it */}
+      {/* Two stacking stages, chained by nesting: What I Can Do pins and blurs
+          while How I Work covers it; How I Work then pins (no blur) and lights
+          its four phase cards while Tech Stack covers it. */}
       <ScrollStack>
         <WhatIDo />
-        <Process />
+        <ScrollStack blur={false} hold={1.1}>
+          <Process />
+          <Skills />
+        </ScrollStack>
       </ScrollStack>
-      <Skills />
       {/* <Experience /> */}
       <GitHubActivity />
       <Faq />

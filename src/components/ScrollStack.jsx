@@ -1,23 +1,34 @@
-import { useEffect, useRef, useState } from 'react'
+import { cloneElement, isValidElement, useEffect, useRef, useState } from 'react'
 
 const MAX_BLUR = 14      // px, at full coverage
 const MIN_BRIGHT = 0.72  // the base dims as it recedes
 
 /**
- * Pins the first child while the second scrolls up over it, blurring and
- * dimming the first as it gets covered. After the pair, scrolling is normal —
- * whatever follows does not stack.
+ * Pins the first child while the second scrolls up over it. With `blur` on, the
+ * base also blurs and dims as it gets covered. After the pair, scrolling is
+ * normal — whatever follows does not stack.
  *
- * Takes exactly two children: [base, cover].
+ * Takes exactly two children: [base, cover]. The base is handed a
+ * `stackProgress` prop (0-1, or null when the effect is off) so it can animate
+ * its own contents while pinned; stack these by nesting one as another's cover.
+ *
+ * `hold` (in viewport heights) inserts a transparent runway between the two, so
+ * the base stays pinned for that much extra scroll before the cover starts to
+ * rise. Without it the base's own animation and the covering share the same
+ * scroll distance and run at once — the reason the phase cards were still
+ * unlit when the next section had already climbed most of the way up.
  */
-export default function ScrollStack({ children }) {
+export default function ScrollStack({ children, blur = true, hold = 0 }) {
   const [base, cover] = children
 
   const baseRef = useRef(null)
   const coverRef = useRef(null)
+  const runwayRef = useRef(null)
   const [stickyTop, setStickyTop] = useState(0)
+  const [holdPx, setHoldPx] = useState(0)
   const [enabled, setEnabled] = useState(false)
-  const [progress, setProgress] = useState(0)
+  const [coverProgress, setCoverProgress] = useState(0)
+  const [holdProgress, setHoldProgress] = useState(0)
 
   // Decide whether the effect fits, and where the base should pin
   useEffect(() => {
@@ -41,6 +52,7 @@ export default function ScrollStack({ children }) {
       // Negative offset so the base pins when its *bottom* meets the viewport
       // bottom — otherwise a section taller than the screen never shows its end
       setStickyTop(Math.min(0, viewport - baseHeight))
+      setHoldPx(hold > 0 ? Math.round(viewport * hold) : 0)
     }
 
     measure()
@@ -51,7 +63,7 @@ export default function ScrollStack({ children }) {
       observer.disconnect()
       window.removeEventListener('resize', measure)
     }
-  }, [])
+  }, [hold])
 
   // Track how far the cover has come up over the base
   useEffect(() => {
@@ -61,14 +73,25 @@ export default function ScrollStack({ children }) {
     const coverEl = coverRef.current
     if (!coverEl) return
 
+    const clamp = (v) => Math.min(Math.max(v, 0), 1)
+
     let frame = null
     const onScroll = () => {
       if (frame) return
       frame = requestAnimationFrame(() => {
         frame = null
-        const top = coverEl.getBoundingClientRect().top
         const viewport = window.innerHeight
-        setProgress(Math.min(Math.max(1 - top / viewport, 0), 1))
+
+        setCoverProgress(clamp(1 - coverEl.getBoundingClientRect().top / viewport))
+
+        // Runway consumed: 0 when its bottom is a full runway below the fold,
+        // 1 the moment its bottom reaches the fold — which is exactly when the
+        // cover starts to rise.
+        const runway = runwayRef.current
+        if (runway) {
+          const box = runway.getBoundingClientRect()
+          setHoldProgress(box.height ? clamp(1 - (box.bottom - viewport) / box.height) : 1)
+        }
       })
     }
 
@@ -80,8 +103,15 @@ export default function ScrollStack({ children }) {
     }
   }, [enabled])
 
-  const blur = (MAX_BLUR * progress).toFixed(2)
-  const bright = (1 - (1 - MIN_BRIGHT) * progress).toFixed(3)
+  const blurPx = (MAX_BLUR * coverProgress).toFixed(2)
+  const bright = (1 - (1 - MIN_BRIGHT) * coverProgress).toFixed(3)
+
+  // With a runway, the base animates over that stretch and finishes before the
+  // cover moves; without one, the covering itself drives it.
+  const baseProgress = hold > 0 ? holdProgress : coverProgress
+  const baseNode = isValidElement(base)
+    ? cloneElement(base, { stackProgress: enabled ? baseProgress : null })
+    : base
 
   // The DOM shape never changes — only styles — so both refs stay attached and
   // the ResizeObserver never ends up watching an unmounted node.
@@ -89,19 +119,28 @@ export default function ScrollStack({ children }) {
     <div className="relative">
       <div
         ref={baseRef}
-        className={enabled ? 'sticky' : undefined}
+        // overflow-hidden is load-bearing: a blurred child paints outside its
+        // own box, and that bleed showed up as a dark band across the covering
+        // section. Clipping to the sticky box removes it and keeps the blur
+        // inside the section's own edges.
+        className={enabled ? 'sticky overflow-hidden' : undefined}
         style={enabled ? { top: stickyTop } : undefined}
       >
         <div
           style={
-            enabled
-              ? { filter: `blur(${blur}px) brightness(${bright})`, willChange: 'filter' }
+            enabled && blur
+              ? { filter: `blur(${blurPx}px) brightness(${bright})` }
               : undefined
           }
         >
-          {base}
+          {baseNode}
         </div>
       </div>
+
+      {/* Transparent runway: the pinned base shows through it while it scrolls */}
+      {enabled && holdPx > 0 && (
+        <div ref={runwayRef} style={{ height: holdPx }} aria-hidden="true" />
+      )}
 
       {/* Opaque and above the base — without a background the navy shows through */}
       <div ref={coverRef} className={enabled ? 'relative z-10 bg-surface' : undefined}>
