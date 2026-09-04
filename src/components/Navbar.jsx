@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Icon } from './Icons'
+import { scrollToSection } from './scrollToSection'
 
 // Served straight out of /public, so the path is stable in dev and on Vercel —
 // and same-origin, which is what makes the `download` attribute take effect.
@@ -50,6 +51,15 @@ export default function Navbar() {
 
   const close = () => setOpen(false)
 
+  // Drive the in-page jump ourselves. The browser would aim at the sticky
+  // section instead of its runway, and re-clicking the link for the section you
+  // are already on does not change the URL, so nothing would re-run.
+  const jump = (href) => (event) => {
+    const hash = href.slice(href.indexOf('#'))
+    if (scrollToSection(hash)) event.preventDefault()
+    close()
+  }
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -75,6 +85,7 @@ export default function Navbar() {
             <a
               key={l.href}
               href={l.href}
+              onClick={jump(l.href)}
               aria-current={active === l.id ? 'true' : undefined}
               className={`nav-link ${active === l.id ? 'text-ink after:w-full' : ''}`}
             >
@@ -114,7 +125,7 @@ export default function Navbar() {
               href={l.href}
               aria-current={active === l.id ? 'true' : undefined}
               className={`nav-link block py-1 ${active === l.id ? 'text-ink' : ''}`}
-              onClick={close}
+              onClick={jump(l.href)}
             >
               {l.label}
             </a>

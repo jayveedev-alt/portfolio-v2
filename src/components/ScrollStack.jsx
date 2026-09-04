@@ -116,9 +116,15 @@ export default function ScrollStack({ children, blur = true, hold = 0 }) {
   // The DOM shape never changes — only styles — so both refs stay attached and
   // the ResizeObserver never ends up watching an unmounted node.
   return (
-    <div className="relative">
+    // The wrapper is the runway: in normal flow, so its document position does
+    // not move. An in-page link aimed at the pinned section scrolls here
+    // instead, landing at the start of the animation. Only the base carries the
+    // marker — the cover holds an ordinary section that should be scrolled to
+    // directly.
+    <div className="relative" data-stack-root>
       <div
         ref={baseRef}
+        data-stack-pinned={enabled ? '' : undefined}
         // overflow-hidden is load-bearing: a blurred child paints outside its
         // own box, and that bleed showed up as a dark band across the covering
         // section. Clipping to the sticky box removes it and keeps the blur
