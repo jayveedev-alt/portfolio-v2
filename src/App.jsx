@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
+import AskBot from './components/AskBot'
 import Home from './pages/Home'
 import ProjectDetail from './pages/ProjectDetail'
 
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <Footer />
+      <AskBot />
     </>
   )
 }

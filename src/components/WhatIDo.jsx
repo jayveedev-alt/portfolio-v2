@@ -71,17 +71,34 @@ function CtaCell({ label, href }) {
   return (
     <a
       href={href}
-      className="reveal-item group flex items-center justify-center gap-5 py-6
+      className="reveal-item group flex items-center justify-center py-6
                  lg:min-h-[19rem] cursor-pointer"
     >
-      <span className="font-heading font-medium text-lg text-ink">{label}</span>
+      {/* Rests as plain text beside a blue disc. On hover the two collapse into a
+          single solid pill: the disc loses its own fill and the pill picks it up,
+          so the arrow reads as sitting inside the button. The cell is much taller
+          than the control and centres it, so the size change shifts nothing. */}
       <span
-        className="w-14 h-14 rounded-full bg-accent flex items-center justify-center shrink-0
-                   transition-transform duration-300 group-hover:scale-110"
+        className="flex items-center rounded-full gap-5 px-0 py-0
+                   transition-all duration-300 ease-out
+                   group-hover:gap-6 group-hover:bg-accent
+                   group-hover:pl-8 group-hover:pr-7 group-hover:py-[1.375rem]"
       >
-        <svg viewBox="0 0 20 20" fill="#ffffff" className="w-5 h-5" aria-hidden="true">
-          <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
-        </svg>
+        <span
+          className="font-heading font-medium text-lg text-ink whitespace-nowrap
+                     transition-colors duration-300 ease-out group-hover:text-onAccent"
+        >
+          {label}
+        </span>
+        <span
+          className="w-14 h-14 rounded-full bg-accent flex items-center justify-center shrink-0
+                     transition-all duration-300 ease-out
+                     group-hover:w-5 group-hover:h-5 group-hover:bg-transparent"
+        >
+          <svg viewBox="0 0 20 20" fill="#ffffff" className="w-5 h-5 shrink-0" aria-hidden="true">
+            <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
+          </svg>
+        </span>
       </span>
     </a>
   )

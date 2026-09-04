@@ -1,8 +1,8 @@
 import {
-  siReact, siNextdotjs, siTypescript, siTailwindcss, siExpo, siFlutter,
+  siReact, siNextdotjs, siTypescript, siTailwindcss, siExpo, siFlutter, siCapacitor,
   siNodedotjs, siExpress, siPython, siCodeigniter, siYii, siSequelize, siGraphql,
-  siPostgresql, siMysql, siMariadb, siMongodb, siRedis,
-  siDocker, siNginx, siGit, siGithubactions, siVercel, siNetlify,
+  siPostgresql, siMysql, siMariadb, siMongodb, siRedis, siSupabase, siFirebase,
+  siDocker, siNginx, siGit, siGithubactions, siVercel, siNetlify, siGooglecloud,
   siPostman, siSwagger, siN8n, siGoogleappsscript,
 } from 'simple-icons'
 
@@ -26,6 +26,7 @@ export const techStack = [
       icon(siTailwindcss, 'Tailwind CSS'),
       icon(siExpo, 'React Native Expo'),
       icon(siFlutter),
+      icon(siCapacitor),
     ],
   },
   {
@@ -45,13 +46,15 @@ export const techStack = [
   {
     number: '03',
     title: 'Databases',
-    description: 'Schema design, indexing, and query tuning — relational and document alike.',
+    description: 'Schema design, indexing, and query tuning — relational, document, and managed platforms alike.',
     items: [
       icon(siPostgresql),
       icon(siMysql),
       icon(siMariadb),
       icon(siMongodb),
       icon(siRedis),
+      icon(siSupabase),
+      icon(siFirebase),
     ],
   },
   {
@@ -63,6 +66,7 @@ export const techStack = [
       icon(siNginx, 'Nginx'),
       icon(siGit, 'Git / GitHub'),
       icon(siGithubactions, 'CI/CD'),
+      icon(siGooglecloud, 'Google Cloud'),
       icon(siVercel),
       icon(siNetlify),
     ],
