@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import PointerCue from './PointerCue'
+import SelectCue from './SelectCue'
 import { useCountUp } from './useCountUp'
 
 const stats = [
@@ -77,9 +78,12 @@ export default function Hero() {
         </h1>
 
         <p className="text-muted text-base sm:text-lg leading-relaxed max-w-2xl mb-10">
-          I build the whole thing — web app, mobile app, API, database, deploy. Seven
-          years turning messy requirements into clean, scalable products that hold up
-          once real users arrive.
+          I build the whole thing —{' '}
+          <span data-select="1" data-select-label="Web App">web app</span>,{' '}
+          <span data-select="2" data-select-label="Mobile App">mobile app</span>,{' '}
+          <span data-select="3" data-select-label="API">API</span>, database, deploy.
+          Seven years turning messy requirements into clean, scalable products that
+          hold up once real users arrive.
         </p>
 
         {/* ── CTAs ── */}
@@ -107,6 +111,7 @@ export default function Hero() {
       </div>
 
       <PointerCue hostRef={hostRef} />
+      <SelectCue hostRef={hostRef} />
 
       {/* ── Scroll cue ── */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2">

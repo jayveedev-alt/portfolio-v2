@@ -92,7 +92,7 @@ export default function WhatIDo() {
   const bottomRow = services.slice(4, 6)
 
   return (
-    <section id="services" className="on-dark py-28 px-6">
+    <section id="services" className="on-dark py-28 px-6 sticky">
       <div className="max-w-6xl mx-auto">
         <div className="reveal mb-14 max-w-2xl">
           <div className="eyebrow">What I Can Do</div>

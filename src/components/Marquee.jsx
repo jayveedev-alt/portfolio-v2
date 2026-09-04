@@ -31,7 +31,7 @@ function Row() {
 
 export default function Marquee() {
   return (
-    <section className="relative py-10 border-y border-line bg-card overflow-hidden">
+    <section className="relative rotate-[-2deg] py-10 border-y border-line bg-card overflow-hidden">
       <div className="marquee-mask marquee-track">
         <div className="flex w-max animate-marquee">
           {/* Two identical rows — the animation shifts exactly -50%, so the seam is invisible */}
