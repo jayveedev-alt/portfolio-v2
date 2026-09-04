@@ -5,6 +5,7 @@ export const services = [
     description: 'Pixel-perfect, responsive UIs using React, Next.js, and TypeScript. Fast, accessible, and visually polished.',
     tagline: 'Pixel-perfect and accessible',
     icon: 'monitor',
+    decor: 'arcs',
   },
   {
     id: 2,
@@ -12,6 +13,7 @@ export const services = [
     description: 'Scalable REST and GraphQL APIs with Node.js, Express, FastAPI. Auth, caching, queues — the full stack.',
     tagline: 'REST and GraphQL, auth included',
     icon: 'cloud',
+    decor: 'bars',
   },
   {
     id: 3,
@@ -19,6 +21,7 @@ export const services = [
     description: 'Schema design and optimization for PostgreSQL, MongoDB, MariaDB, and Redis. Performance tuning for high-traffic apps.',
     tagline: 'Schema design and query tuning',
     icon: 'database',
+    decor: 'squares',
   },
   {
     id: 4,
@@ -26,6 +29,7 @@ export const services = [
     description: 'Wireframes, prototypes, and design systems. Bridging the gap between design and development.',
     tagline: 'Wireframes to design systems',
     icon: 'pen',
+    decor: 'diamonds',
   },
   {
     id: 5,
@@ -33,6 +37,7 @@ export const services = [
     description: 'CI/CD pipelines, Docker, Nginx. Ship fast, stay reliable, never lose sleep over deployments.',
     tagline: 'CI/CD, Docker, zero drama',
     icon: 'shield',
+    decor: 'stripes',
   },
   {
     id: 6,
@@ -40,5 +45,6 @@ export const services = [
     description: 'Cross-platform mobile apps with React Native Expo and Flutter. From idea to app store — smooth, fast, and native-feeling.',
     tagline: 'One codebase, both stores',
     icon: 'mobile',
+    decor: 'discs',
   },
 ]

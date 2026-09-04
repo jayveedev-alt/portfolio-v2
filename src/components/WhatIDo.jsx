@@ -5,28 +5,128 @@ import { Icon } from './Icons'
 // bordered panel, repeating.
 const isFilled = (i) => i % 2 === 0
 
-/* Decorative geometry — concentric arcs on filled cards, a ghosted outline of
-   the card's own icon on the plain ones. Purely visual. */
-function CardDecor({ filled, icon }) {
-  if (filled) {
-    return (
-      <svg
-        className="absolute -top-10 -right-10 w-56 h-56 pointer-events-none"
-        viewBox="0 0 200 200" fill="none" aria-hidden="true"
-      >
-        {[52, 74, 96, 118].map((r, i) => (
-          <circle
-            key={r} cx="150" cy="50" r={r}
-            stroke="#ffffff" strokeWidth="14" strokeOpacity={0.09 - i * 0.015}
-          />
-        ))}
-      </svg>
-    )
-  }
+/* ---------------------------------------------------------------------------
+   Card background geometry.
+
+   Every card gets its own shape, so no two read as the same motif. Each shape
+   is built from stacked layers, and the layers run dark -> light from the
+   innermost outward: the inner ones sit on the card as shadow, the outer ones
+   as highlight. Using both ends of the ramp is what gives the depth — a
+   white-only ramp just dissolves into the fill and reads flat.
+
+   These are hand-built primitives rather than the card's own icon scaled up:
+   an icon enlarged to 11rem shows every hinted curve and stroke join it was
+   never drawn for, which is what made the old ghosted version look wrong.
+--------------------------------------------------------------------------- */
+
+const mix = (from, to, k) => (from + (to - from) * k).toFixed(3)
+
+/**
+ * Paint for layer `i` of `n`, innermost first.
+ * On a solid accent card the ramp crosses from black to white through the
+ * middle. On a near-black panel black is invisible, so it stays a white ramp
+ * and simply runs faint -> less faint.
+ */
+function layerPaint(i, n, filled) {
+  const t = n <= 1 ? 0 : i / (n - 1)
+  if (!filled) return `rgba(255, 255, 255, ${mix(0.02, 0.09, t)})`
+  if (t < 0.5) return `rgba(0, 0, 0, ${mix(0.17, 0.03, t / 0.5)})`
+  return `rgba(255, 255, 255, ${mix(0.04, 0.17, (t - 0.5) / 0.5)})`
+}
+
+const DECORS = {
+  // Concentric arcs breaking out of the top-right corner.
+  arcs: {
+    box: '-top-12 -right-12 w-64 h-64',
+    draw: (paint) => {
+      const rs = [40, 62, 84, 106, 128]
+      return rs.map((r, i) => (
+        <circle key={r} cx="148" cy="54" r={r} fill="none"
+          stroke={paint(i, rs.length)} strokeWidth="15" />
+      ))
+    },
+  },
+
+  // Concentric rounded squares — same rhythm as the arcs, different geometry.
+  squares: {
+    box: '-top-14 -right-14 w-64 h-64',
+    draw: (paint) => {
+      const ss = [42, 76, 110, 144, 178]
+      return ss.map((size, i) => (
+        <rect key={size} x={148 - size / 2} y={56 - size / 2} width={size} height={size}
+          rx={size * 0.26} fill="none" stroke={paint(i, ss.length)} strokeWidth="13" />
+      ))
+    },
+  },
+
+  // Diagonal bands sweeping across the corner.
+  stripes: {
+    box: '-top-10 -right-16 w-72 h-72',
+    draw: (paint) => {
+      const is = [0, 1, 2, 3, 4]
+      return (
+        <g transform="rotate(-38 100 100)">
+          {is.map((i) => (
+            <rect key={i} x={26 + i * 36} y="-70" width="23" height="340" rx="11.5"
+              fill={paint(i, is.length)} />
+          ))}
+        </g>
+      )
+    },
+  },
+
+  // Stacked diamonds (the square set, turned 45deg).
+  diamonds: {
+    box: '-top-12 -right-12 w-60 h-60',
+    draw: (paint) => {
+      const ss = [38, 70, 102, 134, 166]
+      return (
+        <g transform="rotate(45 146 58)">
+          {ss.map((size, i) => (
+            <rect key={size} x={146 - size / 2} y={58 - size / 2} width={size} height={size}
+              rx="12" fill="none" stroke={paint(i, ss.length)} strokeWidth="12" />
+          ))}
+        </g>
+      )
+    },
+  },
+
+  // Rounded columns rising from the bottom edge.
+  bars: {
+    box: '-bottom-10 -right-10 w-56 h-56',
+    draw: (paint) => {
+      const hs = [64, 100, 136, 172, 208]
+      return hs.map((h, i) => (
+        <rect key={h} x={24 + i * 36} y={210 - h} width="24" height={h} rx="12"
+          fill={paint(i, hs.length)} />
+      ))
+    },
+  },
+
+  // Filled concentric discs anchored off the bottom-right corner. Solid layers
+  // overlap here, so their alphas compound toward the middle — the array runs
+  // outermost-first and takes the ramp in that order, letting the build-up
+  // reinforce the core instead of fighting it.
+  discs: {
+    box: '-bottom-16 -right-16 w-64 h-64',
+    draw: (paint) => {
+      const rs = [150, 118, 86, 54, 26]
+      return rs.map((r, i) => (
+        <circle key={r} cx="150" cy="150" r={r} fill={paint(i, rs.length)} />
+      ))
+    },
+  },
+}
+
+function CardDecor({ variant, filled }) {
+  const decor = DECORS[variant] ?? DECORS.arcs
   return (
-    <div className="absolute -bottom-6 -right-6 opacity-[0.06] pointer-events-none">
-      <Icon name={icon} className="w-44 h-44" color="currentColor" />
-    </div>
+    <svg
+      className={`absolute pointer-events-none ${decor.box}`}
+      viewBox="0 0 200 200" fill="none" aria-hidden="true"
+    >
+      {decor.draw((i, n) => layerPaint(i, n, filled))}
+    </svg>
   )
 }
 
@@ -41,7 +141,7 @@ function ServiceCard({ service, index }) {
                     ? 'bg-accent text-onAccent'
                     : 'bg-card border border-line text-ink'}`}
     >
-      <CardDecor filled={filled} icon={service.icon} />
+      <CardDecor variant={service.decor} filled={filled} />
 
       {/* Icon in a circle, top-left */}
       <div
