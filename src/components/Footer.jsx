@@ -97,16 +97,16 @@ export default function Footer() {
       </div>
 
       {/* Oversized wordmark — full-bleed, and the last element in the page */}
-      <div className="px-6 mt-16" aria-hidden="true">
+      <div className="px-6 mt-8 pb-3" aria-hidden="true">
         <div
           id="footer-wordmark"
-          className="font-heading font-bold text-ink uppercase whitespace-nowrap
-                     leading-none tracking-[-0.035em] -mb-[0.141em]"
+          className="font-heading font-bold text-ink uppercase whitespace-nowrap text-center
+                     leading-none tracking-[-0.035em]"
           style={{
             fontSize: 'calc((100vw - 3rem) * 0.118)',
           }}
         >
-          Mr Santos
+          Benedict Santos
         </div>
       </div>
       <span className="sr-only">John Benedict Santos</span>
