@@ -1,0 +1,106 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { workItems, categories } from '../data/work'
+import WorkThumb from './WorkThumb'
+
+function ArrowRight({ className = 'w-4 h-4' }) {
+  return (
+    <svg viewBox="0 0 20 20" fill="currentColor" className={className} aria-hidden="true">
+      <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
+    </svg>
+  )
+}
+
+function WorkCard({ item }) {
+  return (
+    <article className="reveal-item card card-hover overflow-hidden flex flex-col group">
+      <Link to={`/work/${item.slug}`} className="block" aria-label={`${item.title} — view project`}>
+        <WorkThumb thumb={item.thumb} />
+      </Link>
+
+      <div className="p-7 flex flex-col flex-1">
+        <div className="mock-label text-accentT">{item.kicker}</div>
+
+        <h3 className="font-heading font-bold text-xl text-ink mt-3">
+          <Link to={`/work/${item.slug}`} className="hover:text-accentT transition-colors">
+            {item.title}
+          </Link>
+        </h3>
+
+        <p className="text-muted text-sm leading-relaxed mt-3 flex-1">
+          {item.study?.summary ?? item.description}
+        </p>
+
+        <Link
+          to={`/work/${item.slug}`}
+          className="inline-flex items-center gap-2 mt-6 text-sm font-medium text-ink
+                     underline underline-offset-4 decoration-line2
+                     hover:text-accentT hover:decoration-accent transition-colors w-fit"
+        >
+          View project
+          <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+        </Link>
+      </div>
+    </article>
+  )
+}
+
+export default function SelectedWork() {
+  const [active, setActive] = useState('all')
+  const shown = active === 'all' ? workItems : workItems.filter((w) => w.category === active)
+
+  return (
+    <section id="work" className="py-28 px-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="reveal max-w-3xl">
+          <span className="inline-flex items-center px-4 py-2 rounded-full border border-line
+                           font-mono text-[0.66rem] tracking-[0.18em] uppercase text-accentT mb-7">
+            Selected Work
+          </span>
+
+          <h2 className="h-display text-4xl sm:text-5xl lg:text-[3.4rem] text-ink">
+            {workItems.length === 1 ? 'One build,' : `${workItems.length} builds,`}
+            <br />
+            every one still live.
+          </h2>
+
+          <p className="text-muted mt-6 leading-relaxed">
+            Security tooling, a multi-branch laundry SaaS, a productivity app and this site
+            itself. Every one has a{' '}
+            <span className="text-accentT">full case study</span> with the real interface and
+            a link to the live build.
+          </p>
+        </div>
+
+        {/* Category filter */}
+        <div className="reveal flex flex-wrap gap-3 mt-12" role="tablist" aria-label="Filter projects">
+          {categories.map((c) => {
+            const isActive = c.id === active
+            return (
+              <button
+                key={c.id}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setActive(c.id)}
+                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer
+                            ${isActive
+                              ? 'bg-accent text-onAccent'
+                              : 'border border-line text-muted hover:text-ink hover:border-line2'}`}
+              >
+                {c.label}
+              </button>
+            )
+          })}
+        </div>
+
+        {/* Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+          {shown.map((item) => (
+            <WorkCard key={item.slug} item={item} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

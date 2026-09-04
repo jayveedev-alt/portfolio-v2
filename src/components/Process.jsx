@@ -28,7 +28,7 @@ export default function Process() {
         <div className="reveal mb-16 max-w-2xl">
           <div className="eyebrow">How I Work</div>
           <h2 className="h-display text-4xl sm:text-5xl text-ink">
-            From idea to production in <span className="serif-em">four phases.</span>
+            From idea to production in <span className="accent-em">four phases.</span>
           </h2>
           <p className="text-muted mt-5 leading-relaxed">
             A structured flow so the project moves without friction — defined timelines,
@@ -46,7 +46,7 @@ export default function Process() {
 
               <div className="card card-hover p-7 h-full flex flex-col">
                 <div className="flex items-baseline justify-between mb-6">
-                  <span className="font-display text-4xl text-accent/25 group-hover:text-accent/60 transition-colors duration-300">
+                  <span className="font-mono font-medium text-3xl text-accentT/30 group-hover:text-accentT/60 transition-colors duration-300">
                     {s.n}
                   </span>
                   <span className="mock-label">Phase</span>
@@ -58,7 +58,7 @@ export default function Process() {
                 <div className="mt-6 pt-5 border-t border-line flex items-center justify-between">
                   <span className="mock-label">{i < steps.length - 1 ? 'Next' : 'Ship'}</span>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                    className="w-3.5 h-3.5 text-dark-500 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300">
+                    className="w-3.5 h-3.5 text-faint group-hover:text-accentT group-hover:translate-x-1 transition-all duration-300">
                     <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
                   </svg>
                 </div>

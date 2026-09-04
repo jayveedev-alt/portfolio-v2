@@ -21,14 +21,14 @@ export default function Hero() {
         />
         <div
           className="absolute -top-40 right-[-10%] w-[38rem] h-[38rem] rounded-full blur-[120px] opacity-[0.14]"
-          style={{ background: 'radial-gradient(circle, #d4ff3d, transparent 65%)' }}
+          style={{ background: 'radial-gradient(circle, #3376FF, transparent 65%)' }}
         />
         <div
           className="absolute bottom-[-15%] left-[-10%] w-[30rem] h-[30rem] rounded-full blur-[120px] opacity-[0.10]"
           style={{ background: 'radial-gradient(circle, #818cf8, transparent 65%)' }}
         />
         {/* Ground the hero back into the page */}
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-dark-950" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-surface" />
       </div>
 
       <div className="relative max-w-6xl mx-auto w-full">
@@ -42,14 +42,14 @@ export default function Hero() {
             <span className="text-ink">John Benedict Santos</span>
           </span>
           {/* The separator only reads correctly when both halves share a line */}
-          <span className="hidden sm:inline text-dark-500">·</span>
+          <span className="hidden sm:inline text-faint">·</span>
           <span className="text-muted">Full Stack Developer &amp; UI Engineer</span>
         </div>
 
         {/* ── Headline ── */}
         <h1 className="h-display text-[2.75rem] sm:text-6xl lg:text-7xl xl:text-[5.25rem] text-ink max-w-5xl mb-8">
           Web applications engineered to a{' '}
-          <span className="serif-em">production standard.</span>
+          <span className="accent-em">production standard.</span>
         </h1>
 
         <p className="text-muted text-base sm:text-lg leading-relaxed max-w-2xl mb-10">
@@ -78,7 +78,7 @@ export default function Hero() {
         <div className="flex flex-wrap gap-x-12 gap-y-6 pt-10 border-t border-line max-w-2xl">
           {stats.map((s) => (
             <div key={s.label}>
-              <div className="font-display text-3xl sm:text-4xl text-ink">{s.value}</div>
+              <div className="font-mono font-medium text-2xl sm:text-3xl text-ink">{s.value}</div>
               <div className="mock-label mt-1.5">{s.label}</div>
             </div>
           ))}
@@ -90,7 +90,7 @@ export default function Hero() {
         <span className="mock-label">Scroll to explore</span>
         <svg
           xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-          stroke="#d4ff3d" strokeWidth="1.5" className="w-4 h-4 animate-scroll-cue"
+          stroke="#3376FF" strokeWidth="1.5" className="w-4 h-4 animate-scroll-cue"
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
         </svg>

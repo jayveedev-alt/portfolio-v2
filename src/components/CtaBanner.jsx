@@ -21,7 +21,7 @@ export default function CtaBanner() {
       {/* Accent bloom behind the panel */}
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[42rem] h-[42rem] rounded-full blur-[140px] opacity-[0.09] pointer-events-none"
-        style={{ background: 'radial-gradient(circle, #d4ff3d, transparent 65%)' }}
+        style={{ background: 'radial-gradient(circle, #3376FF, transparent 65%)' }}
       />
 
       <div className="reveal relative max-w-4xl mx-auto text-center">
@@ -29,7 +29,7 @@ export default function CtaBanner() {
 
         <h2 className="h-display text-4xl sm:text-5xl lg:text-6xl text-ink mb-6">
           Have a project in mind?<br />
-          <span className="serif-em">Let&apos;s talk.</span>
+          <span className="accent-em">Let&apos;s talk.</span>
         </h2>
 
         <p className="text-muted max-w-xl mx-auto mb-10 leading-relaxed">
@@ -49,13 +49,13 @@ export default function CtaBanner() {
         </div>
 
         {/* Email + copy */}
-        <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-line bg-white/[0.02]">
+        <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-line bg-raised">
           <span className="font-mono text-xs text-muted">{EMAIL}</span>
           <span className="w-px h-4 bg-line2" />
           <button
             type="button"
             onClick={copyEmail}
-            className="font-mono text-xs text-accent hover:text-ink transition-colors cursor-pointer"
+            className="font-mono text-xs text-accentT hover:text-ink transition-colors cursor-pointer"
           >
             {copied ? 'Copied ✓' : 'Copy'}
           </button>

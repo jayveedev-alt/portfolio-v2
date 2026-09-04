@@ -10,7 +10,7 @@ function ProjectThumb({ thumb }) {
   if (thumb === 'shield') return (
     <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-6">
       <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-accent/[0.08] border border-accent/25">
-        <Icon name="shield" className="w-7 h-7" color="#d4ff3d" />
+        <Icon name="shield" className="w-7 h-7" color="#3376FF" />
       </div>
       <div className="w-full space-y-2">
         {[['SSL ✓', '100%'], ['HTTPS ✓', '100%'], ['Score 87', '70%']].map(([label, w]) => (
@@ -34,7 +34,7 @@ function ProjectThumb({ thumb }) {
           </div>
         ))}
       </div>
-      <div className="flex-1 rounded-xl border border-line bg-white/[0.02] p-2.5 space-y-2">
+      <div className="flex-1 rounded-xl border border-line bg-raised p-2.5 space-y-2">
         {[['#001', 'Pickup'], ['#002', 'Washing'], ['#003', 'Ready']].map(([id, status]) => (
           <div key={id} className="flex items-center justify-between">
             <span className="font-mono text-[0.6rem] text-faint">{id}</span>
@@ -50,17 +50,17 @@ function ProjectThumb({ thumb }) {
   // Browser / marketing site
   if (thumb === 'portfolio') return (
     <div className="absolute inset-0 flex items-center justify-center p-5">
-      <div className="w-full rounded-xl overflow-hidden border border-line bg-dark-900">
-        <div className="flex items-center gap-1.5 px-3 py-2 border-b border-line bg-white/[0.02]">
-          <span className="w-2 h-2 rounded-full bg-dark-500" />
-          <span className="w-2 h-2 rounded-full bg-dark-500" />
-          <span className="w-2 h-2 rounded-full bg-dark-500" />
-          <div className="flex-1 mx-2 h-2.5 rounded-full bg-white/[0.05]" />
+      <div className="w-full rounded-xl overflow-hidden border border-line bg-card">
+        <div className="flex items-center gap-1.5 px-3 py-2 border-b border-line bg-raised">
+          <span className="w-2 h-2 rounded-full bg-line2" />
+          <span className="w-2 h-2 rounded-full bg-line2" />
+          <span className="w-2 h-2 rounded-full bg-line2" />
+          <div className="flex-1 mx-2 h-2.5 rounded-full bg-raised" />
         </div>
         <div className="p-3.5 space-y-2">
           <div className="h-3.5 rounded w-1/2 bg-accent/40" />
-          <div className="h-2 rounded w-full bg-white/[0.07]" />
-          <div className="h-2 rounded w-5/6 bg-white/[0.07]" />
+          <div className="h-2 rounded w-full bg-raised" />
+          <div className="h-2 rounded w-5/6 bg-raised" />
           <div className="flex gap-2 pt-1.5">
             <div className="h-6 w-20 rounded-full bg-accent/70" />
             <div className="h-6 w-20 rounded-full border border-line2" />
@@ -77,7 +77,7 @@ function ProjectThumb({ thumb }) {
         {[
           { label: 'Now',   items: 2, cls: 'bg-accent/45' },
           { label: 'Next',  items: 3, cls: 'bg-iris/40' },
-          { label: 'Later', items: 1, cls: 'bg-white/[0.07]' },
+          { label: 'Later', items: 1, cls: 'bg-raised' },
         ].map(({ label, items, cls }) => (
           <div key={label} className="space-y-1.5">
             <div className="mock-label mb-2">{label}</div>
@@ -96,8 +96,8 @@ function ProjectThumb({ thumb }) {
       <div className="h-14 rounded-xl bg-accent/25" />
       <div className="h-14 rounded-xl col-span-2 bg-accent/40" />
       <div className="h-14 rounded-xl bg-iris/30" />
-      <div className="h-9 rounded-xl col-span-3 bg-white/[0.05]" />
-      <div className="h-9 rounded-xl bg-white/[0.08]" />
+      <div className="h-9 rounded-xl col-span-3 bg-raised" />
+      <div className="h-9 rounded-xl bg-raised" />
     </div>
   )
 }
@@ -138,7 +138,7 @@ function ProjectCard({ project }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${project.title} — live site`}
-                className="text-faint hover:text-accent transition-colors cursor-pointer p-1 md:hidden"
+                className="text-faint hover:text-accentT transition-colors cursor-pointer p-1 md:hidden"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
                   <path fillRule="evenodd" d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z" clipRule="evenodd" />
@@ -152,7 +152,7 @@ function ProjectCard({ project }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${project.title} — source on GitHub`}
-                className="text-faint hover:text-accent transition-colors cursor-pointer p-1"
+                className="text-faint hover:text-accentT transition-colors cursor-pointer p-1"
               >
                 <Icon name="github" className="w-4 h-4" color="currentColor" />
               </a>
@@ -180,7 +180,7 @@ export default function Projects() {
         <div className="reveal mb-16 max-w-2xl">
           <div className="eyebrow">Also Shipped</div>
           <h2 className="h-display text-4xl sm:text-5xl text-ink">
-            Other things I have <span className="serif-em">built.</span>
+            Other things I have <span className="accent-em">built.</span>
           </h2>
         </div>
 

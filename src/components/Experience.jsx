@@ -11,7 +11,7 @@ function TimelineItem({ item }) {
         <div className="flex items-start justify-between gap-3 flex-wrap mb-1">
           <div>
             <div className="font-heading font-semibold text-ink">{item.role}</div>
-            <div className={`text-sm font-medium mt-0.5 ${item.isEducation ? 'text-iris' : 'text-accent'}`}>
+            <div className={`text-sm font-medium mt-0.5 ${item.isEducation ? 'text-iris' : 'text-accentT'}`}>
               {item.company}
             </div>
           </div>
@@ -25,12 +25,12 @@ function TimelineItem({ item }) {
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-28 px-6 border-t border-line bg-dark-900/40">
+    <section id="experience" className="py-28 px-6 border-t border-line ">
       <div className="max-w-3xl mx-auto">
         <div className="reveal mb-16">
           <div className="eyebrow">Background</div>
           <h2 className="h-display text-4xl sm:text-5xl text-ink">
-            Where I have <span className="serif-em">worked.</span>
+            Where I have <span className="accent-em">worked.</span>
           </h2>
         </div>
 

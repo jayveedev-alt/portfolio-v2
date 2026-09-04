@@ -16,7 +16,7 @@ export default function EdgeMarquee({
   children,
   part,
   speed = 16,
-  background = '#d4ff3d',
+  background = '#3376FF',
   className = '',
 }) {
   const rootRef = useRef(null)

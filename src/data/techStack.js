@@ -6,22 +6,12 @@ import {
   siPostman, siSwagger, siN8n, siGoogleappsscript,
 } from 'simple-icons'
 
-// Brand hexes are tuned for light backgrounds. The near-black ones (Next.js #000,
-// Vercel #000, Express, Socket.io, GitHub #181717, MariaDB #003545, Expo #1C2024)
-// vanish on this page's tiles, so only those fall back to the page's ink colour —
-// everything else keeps its real brand colour.
-const MIN_LUMA = 0.06
-
-function luminance(hex) {
-  const [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)
-  const lin = (c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4)
-  return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b)
-}
-
+// Tiles sit on a light surface, so every brand hex is legible unmodified —
+// no luminance correction needed. The accent marquee draws them white instead.
 const icon = (si, label) => ({
   label: label ?? si.title,
   path: si.path,
-  color: luminance(si.hex) < MIN_LUMA ? '#fafafa' : `#${si.hex}`,
+  color: `#${si.hex}`,
 })
 
 export const techStack = [

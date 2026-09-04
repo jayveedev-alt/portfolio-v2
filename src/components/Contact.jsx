@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Icon } from './Icons'
 
 const CALENDLY_URL =
-  'https://calendly.com/jayveedev-alt/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=d4ff3d'
+  'https://calendly.com/jayveedev-alt/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=3376FF'
 
 const quickLinks = [
   { label: 'Email',    value: 'jayveedev.alt@gmail.com', icon: 'mail',     href: 'mailto:jayveedev.alt@gmail.com' },
@@ -111,7 +111,7 @@ export default function Contact() {
         <div className="reveal mb-14 text-center">
           <div className="eyebrow-center">Get In Touch</div>
           <h2 className="h-display text-4xl sm:text-5xl text-ink">
-            Book a call or <span className="serif-em">send a message.</span>
+            Book a call or <span className="accent-em">send a message.</span>
           </h2>
           <p className="text-muted mt-5 max-w-xl mx-auto leading-relaxed">
             Pick a time that works for you, or drop me a note below. I reply within 24 hours.
@@ -131,7 +131,7 @@ export default function Contact() {
               <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0
                               bg-accent/[0.07] border border-accent/20
                               group-hover:bg-accent/[0.14] transition-colors duration-300">
-                <Icon name={l.icon} className="w-4 h-4" color="#d4ff3d" />
+                <Icon name={l.icon} className="w-4 h-4" color="#3376FF" />
               </div>
               <div className="min-w-0">
                 <div className="mock-label">{l.label}</div>

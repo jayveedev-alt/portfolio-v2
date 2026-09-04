@@ -10,9 +10,9 @@ const mocks = {
 // Explicit class strings so Tailwind's content scanner keeps them.
 const themes = {
   accent: {
-    text: 'text-accent',
-    chip: 'bg-accent/10 text-accent border-accent/25',
-    glow: 'radial-gradient(circle, #d4ff3d, transparent 65%)',
+    text: 'text-accentT',
+    chip: 'bg-accent/10 text-accentT border-accent/25',
+    glow: 'radial-gradient(circle, #3376FF, transparent 65%)',
     rule: 'bg-accent/40',
   },
   mint: {
@@ -40,7 +40,7 @@ function CaseStudy({ study }) {
         {/* ── Header ── */}
         <div className="reveal max-w-3xl mb-14">
           <div className="flex items-center gap-3 mb-6">
-            <span className={`font-display text-5xl sm:text-6xl leading-none ${t.text} opacity-30`}>
+            <span className={`font-mono font-medium text-4xl sm:text-5xl leading-none ${t.text} opacity-30`}>
               {study.number}
             </span>
             <span className={`h-px w-10 ${t.rule}`} />
@@ -50,8 +50,8 @@ function CaseStudy({ study }) {
           </div>
 
           <h2 className="h-display text-4xl sm:text-5xl lg:text-[3.5rem] text-ink mb-5">
-            {study.title} <span className="text-dark-500">—</span>{' '}
-            <span className="serif-em">{study.subtitle}</span>
+            {study.title} <span className="text-faint">—</span>{' '}
+            <span className="accent-em">{study.subtitle}</span>
           </h2>
 
           <p className="text-muted leading-relaxed">{study.summary}</p>
@@ -117,7 +117,7 @@ function CaseStudy({ study }) {
         </div>
 
         {/* ── Product mockup ── */}
-        <div className="reveal">
+        <div className="reveal on-dark rounded-2xl">
           <Mock />
         </div>
 

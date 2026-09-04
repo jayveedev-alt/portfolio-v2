@@ -10,13 +10,13 @@ const checks = [
 
 const badge = {
   pass: { label: 'Pass',    cls: 'bg-mint/10 text-mint border-mint/25' },
-  warn: { label: 'Warning', cls: 'bg-accent/10 text-accent border-accent/25' },
+  warn: { label: 'Warning', cls: 'bg-accent/10 text-accentT border-accent/25' },
   fail: { label: 'Missing', cls: 'bg-rose-500/10 text-rose-400 border-rose-500/25' },
 }
 
 const tiles = [
   { label: 'SSL / TLS', value: 'Valid',  tone: 'text-mint' },
-  { label: 'Headers',   value: '6 / 9',  tone: 'text-accent' },
+  { label: 'Headers',   value: '6 / 9',  tone: 'text-accentT' },
   { label: 'Findings',  value: '2 High', tone: 'text-rose-400' },
 ]
 
@@ -25,10 +25,10 @@ export default function SecurePeekMock() {
     <div className="mock-window">
       {/* ── Browser chrome ── */}
       <div className="mock-bar">
-        <span className="mock-dot bg-dark-500" />
-        <span className="mock-dot bg-dark-500" />
-        <span className="mock-dot bg-dark-500" />
-        <div className="flex-1 mx-3 px-3 py-1 rounded-md bg-white/[0.03] border border-line
+        <span className="mock-dot bg-line2" />
+        <span className="mock-dot bg-line2" />
+        <span className="mock-dot bg-line2" />
+        <div className="flex-1 mx-3 px-3 py-1 rounded-md bg-raised border border-line
                         font-mono text-[0.62rem] text-faint truncate">
           securepeek.app / report · acme-store.com
         </div>
@@ -48,12 +48,12 @@ export default function SecurePeekMock() {
               <svg viewBox="0 0 36 36" className="w-16 h-16 -rotate-90">
                 <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="3" />
                 <circle
-                  cx="18" cy="18" r="15.9" fill="none" stroke="#d4ff3d" strokeWidth="3"
+                  cx="18" cy="18" r="15.9" fill="none" stroke="#3376FF" strokeWidth="3"
                   strokeLinecap="round" strokeDasharray="87 100"
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-display text-xl text-ink">87</span>
+                <span className="font-mono font-medium text-lg text-ink">87</span>
               </div>
             </div>
             <div>
@@ -65,7 +65,7 @@ export default function SecurePeekMock() {
           {tiles.map((t) => (
             <div key={t.label} className="mock-tile">
               <div className="mock-label">{t.label}</div>
-              <div className={`font-display text-xl mt-1.5 ${t.tone}`}>{t.value}</div>
+              <div className={`font-mono font-medium text-lg mt-1.5 ${t.tone}`}>{t.value}</div>
             </div>
           ))}
         </div>
@@ -74,7 +74,7 @@ export default function SecurePeekMock() {
         <div>
           <div className="flex items-center justify-between mb-2.5 gap-3">
             <span className="mock-label">Header &amp; Transport Checks</span>
-            <span className="mock-label text-accent">Sorted by impact</span>
+            <span className="mock-label text-accentT">Sorted by impact</span>
           </div>
           <div className="space-y-2">
             {checks.map((c) => (

@@ -6,7 +6,7 @@ function FaqItem({ item, isOpen, onToggle, index }) {
   const buttonId = `faq-button-${index}`
 
   return (
-    <div className="reveal-item border border-line rounded-2xl bg-dark-900 overflow-hidden transition-colors duration-300 hover:border-line2">
+    <div className="reveal-item border border-line rounded-2xl bg-card overflow-hidden transition-colors duration-300 hover:border-line2">
       <h3>
         <button
           id={buttonId}
@@ -16,7 +16,7 @@ function FaqItem({ item, isOpen, onToggle, index }) {
           aria-controls={panelId}
           className="w-full flex items-center justify-between gap-4 text-left px-6 py-5 cursor-pointer"
         >
-          <span className={`font-heading font-medium text-base transition-colors duration-200 ${isOpen ? 'text-accent' : 'text-ink'}`}>
+          <span className={`font-heading font-medium text-base transition-colors duration-200 ${isOpen ? 'text-accentT' : 'text-ink'}`}>
             {item.q}
           </span>
           <span
@@ -25,7 +25,7 @@ function FaqItem({ item, isOpen, onToggle, index }) {
             }`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-              stroke={isOpen ? '#d4ff3d' : '#9ca3af'} strokeWidth="1.6" className="w-3.5 h-3.5">
+              stroke={isOpen ? '#3376FF' : 'currentColor'} strokeWidth="1.6" className="w-3.5 h-3.5">
               <path strokeLinecap="round" d="M12 5v14M5 12h14" />
             </svg>
           </span>
@@ -50,7 +50,7 @@ export default function Faq() {
         <div className="reveal mb-14 text-center">
           <div className="eyebrow-center">Frequently Asked</div>
           <h2 className="h-display text-4xl sm:text-5xl text-ink">
-            Answers before we <span className="serif-em">start.</span>
+            Answers before we <span className="accent-em">start.</span>
           </h2>
           <p className="text-muted mt-5 max-w-xl mx-auto leading-relaxed">
             Timelines, deliverables, and how the money works — settled up front, so the

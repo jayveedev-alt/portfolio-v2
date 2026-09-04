@@ -4,6 +4,7 @@ const express = require('express')
 const cors = require('cors')
 const nodemailer = require('nodemailer')
 const rateLimit = require('express-rate-limit')
+const githubActivity = require('../lib/githubActivity.cjs')
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -11,7 +12,7 @@ const PORT = process.env.PORT || 3001
 app.use(express.json())
 app.use(cors({
   origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173',
-  methods: ['POST'],
+  methods: ['GET', 'POST'],
 }))
 
 // Max 5 contact submissions per IP per 15 minutes
@@ -39,6 +40,18 @@ function validateContact({ name, email, message }) {
   if (!message || message.trim().length < 5) return 'Message must be at least 5 characters.'
   return null
 }
+
+app.get('/api/github', async (req, res) => {
+  const username = process.env.GITHUB_USERNAME || 'jayveedev-alt'
+
+  try {
+    const data = await githubActivity.getActivity(username, process.env.GITHUB_TOKEN)
+    res.json({ success: true, ...data })
+  } catch (err) {
+    console.error('GitHub activity error:', err.message)
+    res.status(502).json({ success: false, error: 'Could not load GitHub activity.' })
+  }
+})
 
 app.post('/api/contact', contactLimiter, async (req, res) => {
   const { name, email, subject, message } = req.body

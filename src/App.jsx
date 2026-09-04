@@ -1,37 +1,21 @@
-import Navbar      from './components/Navbar'
-import Hero        from './components/Hero'
-import Marquee     from './components/Marquee'
-import CaseStudies from './components/CaseStudies'
-import Projects    from './components/Projects'
-import WhatIDo     from './components/WhatIDo'
-import Process     from './components/Process'
-import Skills      from './components/Skills'
-import Experience  from './components/Experience'
-import Faq         from './components/Faq'
-import CtaBanner   from './components/CtaBanner'
-import Contact     from './components/Contact'
-import Footer      from './components/Footer'
-import { useReveal } from './components/useReveal'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import ScrollToTop from './components/ScrollToTop'
+import Home from './pages/Home'
+import ProjectDetail from './pages/ProjectDetail'
 
 export default function App() {
-  useReveal()
-
   return (
     <>
+      <ScrollToTop />
       <Navbar />
-      <main>
-        <Hero />
-        <Marquee />
-        <CaseStudies />
-        <Projects />
-        <WhatIDo />
-        <Process />
-        <Skills />
-        <Experience />
-        <Faq />
-        <CtaBanner />
-        <Contact />
-      </main>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/work/:slug" element={<ProjectDetail />} />
+        {/* Unknown paths fall back to the portfolio rather than a blank screen */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
       <Footer />
     </>
   )
