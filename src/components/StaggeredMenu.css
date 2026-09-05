@@ -5,16 +5,17 @@
  * site tokens rather than the component's hardcoded white/black, so the panel
  * inverts with `.on-dark` like the rest of the page.
  *
- * The wrapper sits *below* the navbar (z-50) on purpose: the toggle that
- * closes the menu lives up there, so the panel must not cover it. The panel's
- * top padding clears the bar. While closed the wrapper is pointer-events:none
- * and the panel is inert, so it never intercepts the page.
+ * Stacking: 45 puts the panel over the AskBot bubble (z-40) but under the
+ * navbar (z-50) — the toggle that closes the menu lives up there, so the panel
+ * must never cover it. The panel's top padding clears the bar. While closed
+ * the wrapper is pointer-events:none and the panel is inert, so it never
+ * intercepts the page.
  */
 
 .staggered-menu-wrapper {
   position: fixed;
   inset: 0;
-  z-index: 40;
+  z-index: 45;
   overflow: hidden;
   pointer-events: none;
 }

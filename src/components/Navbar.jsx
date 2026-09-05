@@ -72,6 +72,7 @@ export default function Navbar() {
   }
 
   return (
+    <>
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
@@ -81,10 +82,7 @@ export default function Navbar() {
       role="navigation"
       aria-label="Main navigation"
     >
-      {/* `relative z-50` keeps the logo and the toggle above the mobile panel:
-          the menu renders inside this nav, so it shares its stacking context
-          and would otherwise paint over the very button that closes it. */}
-      <div className="relative z-50 max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
+      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
         {/* Logo */}
         <a href="/#hero" className="flex items-center shrink-0" aria-label="Mr. Santos — home">
           <span className="font-mono font-bold text-[0.82rem] tracking-[0.1em] uppercase
@@ -130,7 +128,13 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile menu — the staggered panel, driven by the toggle above */}
+    </nav>
+
+      {/* Mobile menu — the staggered panel, driven by the toggle above.
+          It sits OUTSIDE the nav on purpose. Once scrolled, the nav carries
+          `backdrop-blur-xl`, and backdrop-filter makes an element a containing
+          block for fixed descendants — nested in there, the full-screen panel
+          was being clipped to the 68px height of the bar. */}
       <StaggeredMenu
         open={open}
         onClose={close}
@@ -154,6 +158,6 @@ export default function Navbar() {
           </a>
         }
       />
-    </nav>
+    </>
   )
 }
