@@ -8,7 +8,11 @@
     "tags": ["React.js", "Node.js", "Express.js", "Cybersecurity"],
     "liveUrl": "https://securepeek.vercel.app/",
     "githubUrl": "",
-    "image": "",
+    "image": "/work/securepeek.jpg",
+    "gallery": [
+      { "src": "/work/securepeek-checks.jpg", "caption": "Header and transport checks, sorted by severity" },
+      { "src": "/work/securepeek-landing.jpg", "caption": "One input — any public domain" }
+    ],
     "thumb": "shield"
   },
   {
@@ -20,7 +24,11 @@
     "tags": ["React.js", "Node.js", "MySQL", "Tailwind CSS", "WebSockets", "Messenger Bot"],
     "liveUrl": "https://www.aurawash.io/",
     "githubUrl": "",
-    "image": "",
+    "image": "/work/aurawash.jpg",
+    "gallery": [
+      { "src": "/work/aurawash-workflow.jpg", "caption": "Dispatch, fleet and status-sync modules" },
+      { "src": "/work/aurawash-pricing.jpg", "caption": "Per-branch plan tiers" }
+    ],
     "thumb": "laundry"
   },
   {
@@ -32,7 +40,11 @@
     "tags": ["SaaS", "Offline-first", "Mobile", "React", "Node.js"],
     "liveUrl": "https://kwentatayo.vercel.app/",
     "githubUrl": "",
-    "image": "",
+    "image": "/work/kwentatayo.jpg",
+    "gallery": [
+      { "src": "/work/kwentatayo-mobile.jpg", "caption": "The offline-first mobile app" },
+      { "src": "/work/kwentatayo-how.jpg", "caption": "Three-step onboarding" }
+    ],
     "thumb": ""
   },
   {
@@ -44,7 +56,11 @@
     "tags": ["Web App", "AI Agent", "Multi-role", "React", "Node.js"],
     "liveUrl": "https://aqualitpools.com/",
     "githubUrl": "",
-    "image": "",
+    "image": "/work/aqualitpools.jpg",
+    "gallery": [
+      { "src": "/work/aqualitpools-services.jpg", "caption": "Four service lines under one team" },
+      { "src": "/work/aqualitpools-layers.jpg", "caption": "The three layers of a smart pool" }
+    ],
     "thumb": ""
   },
   {
@@ -68,7 +84,11 @@
     "tags": ["E-commerce", "Affiliate", "Web"],
     "liveUrl": "https://www.supremacyinternational.store/",
     "githubUrl": "",
-    "image": "",
+    "image": "/work/supremacy-international.jpg",
+    "gallery": [
+      { "src": "/work/supremacy-international-bestsellers.jpg", "caption": "Best sellers with straight-to-cart buying" },
+      { "src": "/work/supremacy-international-categories.jpg", "caption": "Curated category families" }
+    ],
     "thumb": ""
   },
   {
@@ -78,9 +98,13 @@
     "kicker": "Productivity App",
     "description": "Advanced productivity and todo web application with drag-and-drop task management, multi-column prioritization (Now / Next / Later), fast keyboard navigation, and real-time task organization designed for high-speed workflow.",
     "tags": ["Next.js", "React", "TypeScript", "Tailwind CSS", "Firebase", "Vercel"],
-    "liveUrl": "https://quicklist.bensketch.pro/",
+    "liveUrl": "https://quicklist-alpha-kohl.vercel.app/",
     "githubUrl": "",
-    "image": "",
+    "image": "/work/quicklist.jpg",
+    "gallery": [
+      { "src": "/work/quicklist-features.jpg", "caption": "Tracking, calendar sync and email alerts" },
+      { "src": "/work/quicklist-how.jpg", "caption": "Note to reminder in three steps" }
+    ],
     "thumb": "todo"
   },
   {
@@ -92,7 +116,11 @@
     "tags": ["React.js", "Node.js", "Tailwind CSS", "Vite", "NodeMailer"],
     "liveUrl": "",
     "githubUrl": "https://github.com/jayveedev-alt/portfolio-v2",
-    "image": "",
+    "image": "/work/portfolio-website.jpg",
+    "gallery": [
+      { "src": "/work/portfolio-website-work.jpg", "caption": "The project grid" },
+      { "src": "/work/portfolio-website-services.jpg", "caption": "Services and the stack behind them" }
+    ],
     "thumb": "portfolio"
   },
   {

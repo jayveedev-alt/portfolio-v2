@@ -88,6 +88,28 @@ export default function ProjectDetail() {
           <WorkThumb thumb={item.thumb} image={item.image} fit="auto" className="h-[300px] sm:h-[420px]" />
         </div>
 
+        {/* ── Further screenshots, for the projects that have them ── */}
+        {item.gallery?.length > 0 && (
+          <section className="reveal mt-14">
+            <h2 className="mock-label mb-5 text-accentT">Inside the build</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {item.gallery.map((shot) => (
+                <figure key={shot.src}>
+                  <div className="rounded-2xl overflow-hidden border border-line bg-raised">
+                    <img
+                      src={shot.src}
+                      alt={shot.caption}
+                      loading="lazy"
+                      className="block w-full aspect-[16/10] object-cover"
+                    />
+                  </div>
+                  <figcaption className="text-muted text-sm mt-3">{shot.caption}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* ── Deep dive, when the project has one ── */}
         {study && (
           <div className="reveal grid grid-cols-1 lg:grid-cols-5 gap-6 mt-14">
