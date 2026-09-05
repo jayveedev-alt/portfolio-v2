@@ -1,0 +1,239 @@
+/*
+ * Adapted from reactbits.dev/StaggeredMenu.
+ *
+ * The header/toggle rules are gone — the Navbar owns those. Colours are the
+ * site tokens rather than the component's hardcoded white/black, so the panel
+ * inverts with `.on-dark` like the rest of the page.
+ *
+ * The wrapper sits *below* the navbar (z-50) on purpose: the toggle that
+ * closes the menu lives up there, so the panel must not cover it. The panel's
+ * top padding clears the bar. While closed the wrapper is pointer-events:none
+ * and the panel is inert, so it never intercepts the page.
+ */
+
+.staggered-menu-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.staggered-menu-wrapper[data-open] {
+  pointer-events: auto;
+}
+
+/* ── Colour underlays that lead the panel in ── */
+
+.sm-prelayers {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: clamp(280px, 82vw, 460px);
+  pointer-events: none;
+  z-index: 5;
+}
+
+[data-position='left'] .sm-prelayers {
+  right: auto;
+  left: 0;
+}
+
+.sm-prelayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Panel ── */
+
+.staggered-menu-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: clamp(280px, 82vw, 460px);
+  height: 100%;
+  background: rgb(var(--surface));
+  border-left: 1px solid rgb(var(--line));
+  display: flex;
+  flex-direction: column;
+  padding: 6.5rem 1.75rem 2rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+[data-position='left'] .staggered-menu-panel {
+  right: auto;
+  left: 0;
+  border-left: none;
+  border-right: 1px solid rgb(var(--line));
+}
+
+.sm-panel-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* ── Items ── */
+
+.sm-panel-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sm-panel-itemWrap {
+  position: relative;
+  overflow: hidden;
+  line-height: 1;
+}
+
+.sm-panel-item {
+  position: relative;
+  display: inline-block;
+  color: rgb(var(--ink));
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: clamp(2.25rem, 11vw, 3.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+  cursor: pointer;
+  padding-right: 1.4em;
+  transition: color 0.25s;
+}
+
+.sm-panel-item:hover,
+.sm-panel-item:focus-visible {
+  color: rgb(var(--accent-t));
+}
+
+.sm-panel-item:focus-visible {
+  outline: 2px solid rgb(var(--accent));
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.sm-panel-itemLabel {
+  display: inline-block;
+  will-change: transform;
+  transform-origin: 50% 100%;
+}
+
+.sm-panel-list[data-numbering] {
+  counter-reset: smItem;
+}
+
+.sm-panel-list[data-numbering] .sm-panel-item::after {
+  counter-increment: smItem;
+  content: counter(smItem, decimal-leading-zero);
+  position: absolute;
+  top: 0.25em;
+  right: 0.4em;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: rgb(var(--accent-t));
+  letter-spacing: 0;
+  pointer-events: none;
+  user-select: none;
+  opacity: var(--sm-num-opacity, 0);
+}
+
+/* ── Footer slot (the Resume button) ── */
+
+.sm-panel-footer {
+  margin-top: auto;   /* pushes the footer+socials group to the bottom */
+  padding-top: 2rem;
+  display: flex;
+}
+
+.sm-panel-footer > * {
+  flex: 1;
+}
+
+/* Socials follow the footer, so only one of them claims the leftover space. */
+.sm-panel-footer + .sm-socials {
+  margin-top: 1.5rem;
+}
+
+/* ── Socials ── */
+
+.sm-socials {
+  margin-top: auto;
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sm-socials-title {
+  margin: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgb(var(--faint));
+}
+
+.sm-socials-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sm-socials-link {
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgb(var(--muted));
+  text-decoration: none;
+  padding: 2px 0;
+  display: inline-block;
+  transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.sm-socials-link:hover,
+.sm-socials-link:focus-visible {
+  color: rgb(var(--accent-t));
+}
+
+.sm-socials-link:focus-visible {
+  outline: 2px solid rgb(var(--accent));
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* Dim the siblings of whichever link is being pointed at or tabbed to. */
+.sm-socials-list:hover .sm-socials-link:not(:hover),
+.sm-socials-list:focus-within .sm-socials-link:not(:focus-visible) {
+  opacity: 0.35;
+}
+
+/* ── The panel is mobile-only; the desktop nav takes over at lg ── */
+
+@media (min-width: 1024px) {
+  .staggered-menu-wrapper {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sm-panel-item,
+  .sm-socials-link {
+    transition: none;
+  }
+}

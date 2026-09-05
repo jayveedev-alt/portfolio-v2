@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Icon } from './Icons'
 import { scrollToSection } from './scrollToSection'
+import StaggeredMenu from './StaggeredMenu'
 
 // Served straight out of /public, so the path is stable in dev and on Vercel —
 // and same-origin, which is what makes the `download` attribute take effect.
@@ -21,6 +22,16 @@ const links = [
   { label: 'Process',  href: '/#process',    id: 'process'    },
   { label: 'Stack',    href: '/#skills',     id: 'skills'     },
   { label: 'FAQ',      href: '/#faq',        id: 'faq'        },
+]
+
+// The mobile panel gets Contact too — on desktop that lives in the hero and
+// the footer, but a phone user opening the menu is usually looking for it.
+const mobileLinks = [...links, { label: 'Contact', href: '/#contact', id: 'contact' }]
+
+const socialLinks = [
+  { label: 'GitHub',   link: 'https://github.com/jayveedev-alt' },
+  { label: 'LinkedIn', link: 'https://linkedin.com/in/johnbsantos' },
+  { label: 'Twitter',  link: 'https://twitter.com/johnbsantos' },
 ]
 
 export default function Navbar() {
@@ -70,7 +81,10 @@ export default function Navbar() {
       role="navigation"
       aria-label="Main navigation"
     >
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
+      {/* `relative z-50` keeps the logo and the toggle above the mobile panel:
+          the menu renders inside this nav, so it shares its stacking context
+          and would otherwise paint over the very button that closes it. */}
+      <div className="relative z-50 max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
         {/* Logo */}
         <a href="/#hero" className="flex items-center shrink-0" aria-label="Mr. Santos — home">
           <span className="font-mono font-bold text-[0.82rem] tracking-[0.1em] uppercase
@@ -116,32 +130,30 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile menu */}
-      {open && (
-        <div className="lg:hidden px-6 pb-6 pt-2 flex flex-col gap-4 border-t border-line bg-surface/95 backdrop-blur-xl">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              aria-current={active === l.id ? 'true' : undefined}
-              className={`nav-link block py-1 ${active === l.id ? 'text-ink' : ''}`}
-              onClick={jump(l.href)}
-            >
-              {l.label}
-            </a>
-          ))}
+      {/* Mobile menu — the staggered panel, driven by the toggle above */}
+      <StaggeredMenu
+        open={open}
+        onClose={close}
+        items={mobileLinks.map((l) => ({
+          label: l.label,
+          link: l.href,
+          ariaLabel: `Go to ${l.label}`,
+        }))}
+        socialItems={socialLinks}
+        onItemClick={(item, event) => jump(item.link)(event)}
+        footer={
           <a
             href={RESUME_URL}
             download={RESUME_FILE}
-            className="btn-accent w-full justify-center mt-1"
+            className="btn-accent w-full justify-center"
             aria-label="Download resume (PDF)"
             onClick={close}
           >
             <DownloadIcon />
             Resume
           </a>
-        </div>
-      )}
+        }
+      />
     </nav>
   )
 }
