@@ -29,7 +29,7 @@
     "category": "systems",
     "kicker": "Finance SaaS",
     "description": "Cloud-based finance and budget tracking SaaS with an offline-first mobile app. Entries are recorded locally and sync once a connection returns, so nothing is lost when the signal drops.",
-    "tags": ["SaaS", "Next.js", "React.js", "Express.js", "Flutter", "Offline-first"],
+    "tags": ["SaaS", "Next.js", "React.js", "Express.js", "Supabase", "Flutter", "Offline-first"],
     "liveUrl": "https://kwentatayo.vercel.app/",
     "githubUrl": "",
     "image": "/work/kwentatayo.jpg",

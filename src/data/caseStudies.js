@@ -78,10 +78,10 @@ export const caseStudies = [
     stack: [
       { label: 'Marketing Site', value: 'Next.js — the public landing page' },
       { label: 'Application', value: 'React.js — the signed-in dashboard' },
-      { label: 'Backend', value: 'Express.js' },
+      { label: 'Backend & Data', value: 'Express.js · Supabase (PostgreSQL)' },
       { label: 'Mobile', value: 'Flutter — offline-first, syncs on reconnect' },
     ],
-    tags: ['SaaS', 'Next.js', 'React.js', 'Express.js', 'Flutter', 'Offline-first'],
+    tags: ['SaaS', 'Next.js', 'React.js', 'Express.js', 'Supabase', 'Flutter', 'Offline-first'],
     liveUrl: 'https://kwentatayo.vercel.app/',
     accent: 'mint',
   },
