@@ -5,10 +5,11 @@
 node_modules/
 server/node_modules/
 
-# Environment variables — never commit secrets
-.env
-.env.local
-.env.*.local
+# Environment variables — never commit secrets.
+# Catch every variant (.env.production, .env.staging, ...), then re-admit the
+# committed template.
+.env*
+!.env.example
 
 # Build output
 dist/
