@@ -55,6 +55,165 @@ export const caseStudies = [
     accent: 'mint',
     mock: 'aurawash',
   },
+  // ── Drafted from the live sites, the tags in projects.json and each
+  //    project's own description. Context and Stack are grounded in what the
+  //    deployed product shows; Role and Key Decision are Ben's call to correct.
+  {
+    id: 'kwentatayo',
+    number: '03',
+    kicker: 'Case Study 03 · Offline-First Finance SaaS',
+    title: 'KwentaTayo',
+    subtitle: 'Budget Tracking That Survives a Dropped Signal',
+    summary:
+      'Cloud-based finance and budget tracking SaaS with an offline-first mobile app. Entries are recorded locally and sync once a connection returns, so nothing is lost when the signal drops.',
+    context:
+      'Filipino household budgeting runs on spreadsheets and memory, and the moment worth recording an expense is usually the moment the signal is worst. KwentaTayo puts wallets, budgets, goals and reports on one dashboard, in English or Tagalog, and keeps working when the connection does not.',
+    role:
+      'Full delivery: the React dashboard, the Node API and multi-currency ledger, the offline-first mobile app, and the sync layer between them.',
+    decisionLabel: 'Key Engineering Decision',
+    decision:
+      'Writes are local-first. An entry commits to device storage immediately and joins a sync queue that reconciles when the network returns, so the app never blocks on a request — the alternative, a spinner on every expense, is what makes people stop logging.',
+    stackTitle: 'Platform Stack',
+    stackBadge: 'Offline-First',
+    stack: [
+      { label: 'Frontend', value: 'React · Tailwind CSS' },
+      { label: 'Mobile & Sync', value: 'Offline-first local store · Background reconciliation' },
+      { label: 'Backend & Data', value: 'Node.js · Multi-currency ledger · Encrypted credentials' },
+    ],
+    tags: ['SaaS', 'Offline-first', 'Mobile', 'React', 'Node.js'],
+    liveUrl: 'https://kwentatayo.vercel.app/',
+    accent: 'mint',
+  },
+  {
+    id: 'aqualitpools',
+    number: '04',
+    kicker: 'Case Study 04 · Service Platform + AI',
+    title: 'AquaLit Pools',
+    subtitle: 'Pool Service Operations and an AI Front Desk',
+    summary:
+      'Website and web application for a pool repair and maintenance business, with separate portals for admin, customer and technician — plus an AI agent that handles customer enquiries in conversation.',
+    context:
+      'A pool company doing maintenance, repairs, automation and renovations has four different jobs sharing one phone line. Scheduling lived in someone head, service history was unsearchable, and every enquiry interrupted a technician. The platform gives each role its own view and puts a conversational agent in front of the enquiries.',
+    role:
+      'Site and web application end to end: the three role-scoped portals, the worklog and readings model, and the AI enquiry agent.',
+    decisionLabel: 'Key Product Decision',
+    decision:
+      'Three scoped portals instead of one dashboard with permissions bolted on. A technician opens the worklog for the pool in front of them, a customer sees only their own readings and history, and the admin sees the whole route — nobody navigates around screens that are not theirs.',
+    stackTitle: 'Platform Stack',
+    stackBadge: 'Multi-Role',
+    stack: [
+      { label: 'Frontend', value: 'React · Tailwind CSS' },
+      { label: 'Backend & Data', value: 'Node.js · Worklogs, readings and service history' },
+      { label: 'AI Layer', value: 'Conversational enquiry agent · Scoped to service context' },
+    ],
+    tags: ['Web App', 'AI Agent', 'Multi-role', 'React', 'Node.js'],
+    liveUrl: 'https://aqualitpools.com/',
+    accent: 'accent',
+  },
+  {
+    id: 'robodyx',
+    number: '05',
+    kicker: 'Case Study 05 · B2B Mobile + AI Coach',
+    title: 'Robodyx',
+    subtitle: 'Training Analytics with a Coach Inside the App',
+    summary:
+      'B2B mobile app for tracking training stats, with an AI coach embedded in the app to guide trainees, and an admin portal for the operators behind it.',
+    context:
+      'Trainees log numbers diligently and then have no idea what to change. Operators, meanwhile, cannot see across their roster without asking each person individually. Robodyx pairs the tracking with guidance and gives the operator one board.',
+    role:
+      'React Native app, the AI coach integration, and the admin portal the operators run it from.',
+    decisionLabel: 'Key Product Decision',
+    decision:
+      'The coach reads the trainee own logged history rather than answering in the abstract, so the guidance references the sessions that person actually did — generic advice is what every free app already gives them.',
+    stackTitle: 'Product Stack',
+    stackBadge: 'B2B Mobile',
+    stack: [
+      { label: 'Mobile', value: 'React Native' },
+      { label: 'AI Layer', value: 'In-app coach grounded in the trainee stat history' },
+      { label: 'Operations', value: 'Admin portal · Roster and progress visibility' },
+    ],
+    tags: ['React Native', 'AI Agent', 'B2B', 'Admin Portal'],
+    liveUrl: '',
+    accent: 'mint',
+  },
+  {
+    id: 'supremacy-international',
+    number: '06',
+    kicker: 'Case Study 06 · Affiliate Commerce',
+    title: 'Supremacy International',
+    subtitle: 'Networking Commerce with Attribution Built In',
+    summary:
+      'Networking e-commerce store where members place orders and earn through an affiliate structure built into the platform.',
+    context:
+      'Networking businesses sell real products — wellness essentials, fragrances, skincare, business packages — but run their referral side on spreadsheets and group chats, so payouts are argued about after the fact. This store carries the affiliate structure in the platform itself.',
+    role:
+      'Storefront, product catalogue, cart and checkout, and the affiliate attribution behind the member accounts.',
+    decisionLabel: 'Key Engineering Decision',
+    decision:
+      'Referral attribution is written into the order record itself rather than tracked by a separate plugin, so every sale carries its own referral chain and a payout can be recomputed from the orders alone.',
+    stackTitle: 'Commerce Stack',
+    stackBadge: 'E-Commerce',
+    stack: [
+      { label: 'Frontend', value: 'Responsive storefront · Category and product pages' },
+      { label: 'Commerce', value: 'Catalogue · Cart · Checkout' },
+      { label: 'Affiliate Layer', value: 'Member accounts · Referral attribution on the order' },
+    ],
+    tags: ['E-commerce', 'Affiliate', 'Web'],
+    liveUrl: 'https://www.supremacyinternational.store/',
+    accent: 'accent',
+  },
+  {
+    id: 'quicklist',
+    number: '07',
+    kicker: 'Case Study 07 · Productivity',
+    title: 'QuickList',
+    subtitle: 'Now, Next, Later — Priority as Position',
+    summary:
+      'Advanced productivity and todo web application with drag-and-drop task management, multi-column prioritization (Now / Next / Later), fast keyboard navigation, and real-time task organization designed for high-speed workflow.',
+    context:
+      'Todo apps split into two useless halves: a flat list that tells you nothing about what matters, or a project tool with sprints and story points for a person who just needs to know what to do next. QuickList keeps three columns and a calendar sync, and nothing else.',
+    role:
+      'Full build: the Next.js and TypeScript frontend, Firebase data and auth, calendar sync, and the email alerting.',
+    decisionLabel: 'Key Product Decision',
+    decision:
+      'Priority is position, not a field. Moving a task from Later to Now is a drag rather than a form — re-prioritising happens constantly, and anything that costs a dialogue stops happening within a week.',
+    stackTitle: 'Engineering Stack',
+    stackBadge: 'Full Stack',
+    stack: [
+      { label: 'Frontend', value: 'Next.js · React · TypeScript · Tailwind CSS' },
+      { label: 'Data & Auth', value: 'Firebase · Real-time task state' },
+      { label: 'Integrations & Infra', value: 'Calendar sync · Email alerts · Vercel' },
+    ],
+    tags: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Firebase', 'Vercel'],
+    liveUrl: 'https://quicklist-alpha-kohl.vercel.app/',
+    accent: 'mint',
+  },
+  {
+    id: 'portfolio-website',
+    number: '08',
+    kicker: 'Case Study 08 · Marketing Site',
+    title: 'Portfolio Website',
+    subtitle: 'This Site',
+    summary:
+      'Modern developer portfolio showcasing my full-stack development projects, technical skills, work experience, and SaaS products. Built with responsive design, smooth animations, optimized performance, and SEO best practices.',
+    context:
+      'A CV lists technologies; it does not show whether someone can ship. This site treats each project as a case study — the problem, the call made, and the interface doing its job — so the work argues for itself before the first call.',
+    role:
+      'Design and build: the component system, the content model, the reveal and scroll behaviour, and the contact pipeline.',
+    decisionLabel: 'Key Engineering Decision',
+    decision:
+      'Projects live in a plain JSON file, so adding one needs no code change, and a case study attaches by slug only when a project has earned a deep dive. The grid and the detail pages read from one list, which keeps them from drifting apart.',
+    stackTitle: 'Engineering Stack',
+    stackBadge: 'Full Stack',
+    stack: [
+      { label: 'Frontend', value: 'React.js · Tailwind CSS · Vite' },
+      { label: 'Backend', value: 'Node.js · NodeMailer contact pipeline' },
+      { label: 'Content & Delivery', value: 'JSON-driven project list · Responsive · SEO' },
+    ],
+    tags: ['React.js', 'Node.js', 'Tailwind CSS', 'Vite', 'NodeMailer'],
+    liveUrl: '',
+    accent: 'accent',
+  },
 ]
 
 // FAQ — the questions clients actually ask before signing.

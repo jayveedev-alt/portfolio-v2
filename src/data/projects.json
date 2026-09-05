@@ -9,10 +9,6 @@
     "liveUrl": "https://securepeek.vercel.app/",
     "githubUrl": "",
     "image": "/work/securepeek.jpg",
-    "gallery": [
-      { "src": "/work/securepeek-checks.jpg", "caption": "Header and transport checks, sorted by severity" },
-      { "src": "/work/securepeek-landing.jpg", "caption": "One input — any public domain" }
-    ],
     "thumb": "shield"
   },
   {
@@ -25,10 +21,6 @@
     "liveUrl": "https://www.aurawash.io/",
     "githubUrl": "",
     "image": "/work/aurawash.jpg",
-    "gallery": [
-      { "src": "/work/aurawash-workflow.jpg", "caption": "Dispatch, fleet and status-sync modules" },
-      { "src": "/work/aurawash-pricing.jpg", "caption": "Per-branch plan tiers" }
-    ],
     "thumb": "laundry"
   },
   {
@@ -41,10 +33,6 @@
     "liveUrl": "https://kwentatayo.vercel.app/",
     "githubUrl": "",
     "image": "/work/kwentatayo.jpg",
-    "gallery": [
-      { "src": "/work/kwentatayo-mobile.jpg", "caption": "The offline-first mobile app" },
-      { "src": "/work/kwentatayo-how.jpg", "caption": "Three-step onboarding" }
-    ],
     "thumb": ""
   },
   {
@@ -57,10 +45,6 @@
     "liveUrl": "https://aqualitpools.com/",
     "githubUrl": "",
     "image": "/work/aqualitpools.jpg",
-    "gallery": [
-      { "src": "/work/aqualitpools-services.jpg", "caption": "Four service lines under one team" },
-      { "src": "/work/aqualitpools-layers.jpg", "caption": "The three layers of a smart pool" }
-    ],
     "thumb": ""
   },
   {
@@ -85,10 +69,6 @@
     "liveUrl": "https://www.supremacyinternational.store/",
     "githubUrl": "",
     "image": "/work/supremacy-international.jpg",
-    "gallery": [
-      { "src": "/work/supremacy-international-bestsellers.jpg", "caption": "Best sellers with straight-to-cart buying" },
-      { "src": "/work/supremacy-international-categories.jpg", "caption": "Curated category families" }
-    ],
     "thumb": ""
   },
   {
@@ -101,10 +81,6 @@
     "liveUrl": "https://quicklist-alpha-kohl.vercel.app/",
     "githubUrl": "",
     "image": "/work/quicklist.jpg",
-    "gallery": [
-      { "src": "/work/quicklist-features.jpg", "caption": "Tracking, calendar sync and email alerts" },
-      { "src": "/work/quicklist-how.jpg", "caption": "Note to reminder in three steps" }
-    ],
     "thumb": "todo"
   },
   {
@@ -117,10 +93,6 @@
     "liveUrl": "",
     "githubUrl": "https://github.com/jayveedev-alt/portfolio-v2",
     "image": "/work/portfolio-website.jpg",
-    "gallery": [
-      { "src": "/work/portfolio-website-work.jpg", "caption": "The project grid" },
-      { "src": "/work/portfolio-website-services.jpg", "caption": "Services and the stack behind them" }
-    ],
     "thumb": "portfolio"
   },
   {

@@ -42,56 +42,37 @@ detail page, so the sides are the first thing to go on small screens.
 
 ## Captured screenshots
 
-Shot from the live sites with headless Chromium at 1600 x 1000, JPG q86.
-Each project's banner (wired as `"image"`) is listed first, then the shots
-that appear in the detail page gallery (`"gallery"` in projects.json).
+One banner per project, shot from the live site with headless Chromium at
+1600 x 1000 (16:10), JPG q86. Wired in via `"image"` in projects.json.
 
-  securepeek.jpg                            live scan of its own host - score 97, grade A+
-  securepeek-checks.jpg                     header and transport checks table
-  securepeek-landing.jpg                    the one-input landing page
+  securepeek.jpg               a live scan of its own host - score 97, grade A+
+  aurawash.jpg                 hero over the admin dashboard
+  kwentatayo.jpg               hero over the dashboard mockup
+  aqualitpools.jpg             hero - pool at dusk
+  supremacy-international.jpg  storefront hero
+  quicklist.jpg                hero - "Organize Your Life"
+  portfolio-website.jpg        this site's own hero
 
-  aurawash.jpg                              hero over the admin dashboard
-  aurawash-workflow.jpg                     dispatch, fleet and status-sync modules
-  aurawash-pricing.jpg                      per-branch plan tiers
+### Still without an image
 
-  kwentatayo.jpg                            hero over the dashboard mockup
-  kwentatayo-mobile.jpg                     the offline-first mobile app
-  kwentatayo-how.jpg                        three-step onboarding
-
-  aqualitpools.jpg                          hero - pool at dusk
-  aqualitpools-services.jpg                 four service lines under one team
-  aqualitpools-layers.jpg                   the three layers of a smart pool
-
-  supremacy-international.jpg               storefront hero
-  supremacy-international-bestsellers.jpg   best sellers, straight to cart
-  supremacy-international-categories.jpg    curated category families
-
-  quicklist.jpg                             hero - "Organize Your Life"
-  quicklist-features.jpg                    tracking, calendar sync, email alerts
-  quicklist-how.jpg                         note to reminder in three steps
-
-  portfolio-website.jpg                     this site's own hero
-  portfolio-website-work.jpg                the project grid
-  portfolio-website-services.jpg            services and the stack behind them
-
-### Still without images
-
-  robodyx          no liveUrl; it is a mobile app, so it needs exported
-                   device screenshots rather than a page capture
-
-It falls back to the abstract placeholder until that is resolved.
+  robodyx     no liveUrl; it is a mobile app, so it needs exported device
+              screenshots rather than a page capture. Falls back to the
+              abstract placeholder until then.
 
 ### Re-shooting
 
-The captures were scripted with playwright-core driving the Chromium in
-~/Library/Caches/ms-playwright. Sites needing care:
+Scripted with playwright-core driving the Chromium in
+~/Library/Caches/ms-playwright. Shoot the page as it actually is - hiding the
+sections under a short hero leaves a dead band that reads as a broken image.
+A viewport of 1280 x 800 suits heroes shorter than 16:10, because the next
+section then fills the remainder naturally instead of a blank gap.
 
-  aqualitpools     never reaches networkidle - use domcontentloaded, and
-                   dismiss the promo modal before shooting
-  supremacy        shot at a 1280 viewport with the lower sections set to
-                   visibility:hidden, so the hero is not crowded by the next
-                   one; a fixed chat bubble also needs hiding
-  kwentatayo       same treatment - the hero alone is shorter than 16:10
+Sites needing care:
+
+  aqualitpools  never reaches networkidle - use domcontentloaded, and dismiss
+                the promo modal before shooting
+  supremacy     a fixed chat bubble sits over the page; hide fixed elements
+                under ~120px before capturing
 
 Note: quicklist's old host, quicklist.bensketch.pro, is dead (expired
 domain). The live entry now points at the Vercel deployment.
