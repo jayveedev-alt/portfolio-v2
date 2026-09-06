@@ -1,3 +1,5 @@
+'use client'
+
 import { cloneElement, isValidElement, useEffect, useRef, useState } from 'react'
 
 const MAX_BLUR = 14      // px, at full coverage

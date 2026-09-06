@@ -1,5 +1,7 @@
+'use client'
+
 import { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { workItems, categories } from '../data/work'
 import WorkThumb from './WorkThumb'
 
@@ -14,7 +16,7 @@ function ArrowRight({ className = 'w-4 h-4' }) {
 function WorkCard({ item }) {
   return (
     <article className="reveal-item card card-hover overflow-hidden flex flex-col group">
-      <Link to={`/work/${item.slug}`} className="block" aria-label={`${item.title} — view project`}>
+      <Link href={`/work/${item.slug}`} className="block" aria-label={`${item.title} — view project`}>
         <WorkThumb thumb={item.thumb} image={item.image} />
       </Link>
 
@@ -22,7 +24,7 @@ function WorkCard({ item }) {
         <div className="mock-label text-accentT">{item.kicker}</div>
 
         <h3 className="font-heading font-bold text-xl text-ink mt-3">
-          <Link to={`/work/${item.slug}`} className="hover:text-accentT transition-colors">
+          <Link href={`/work/${item.slug}`} className="hover:text-accentT transition-colors">
             {item.title}
           </Link>
         </h3>
@@ -32,7 +34,7 @@ function WorkCard({ item }) {
         </p>
 
         <Link
-          to={`/work/${item.slug}`}
+          href={`/work/${item.slug}`}
           className="inline-flex items-center gap-2 mt-6 text-sm font-medium text-ink
                      underline underline-offset-4 decoration-line2
                      hover:text-accentT hover:decoration-accent transition-colors w-fit"

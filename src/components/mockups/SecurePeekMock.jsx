@@ -1,3 +1,5 @@
+'use client'
+
 // Faux "scan report" UI for the SecurePeek case study.
 // Purely presentational — no data, no state, just the shape of the real product.
 const checks = [

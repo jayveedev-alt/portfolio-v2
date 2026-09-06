@@ -3,7 +3,6 @@
 
 # Dependencies
 node_modules/
-server/node_modules/
 
 # Environment variables — never commit secrets.
 # Catch every variant (.env.production, .env.staging, ...), then re-admit the
@@ -12,16 +11,13 @@ server/node_modules/
 !.env.example
 
 # Build output
-dist/
-build/
 .next/
 out/
+build/
+next-env.d.ts
 
 # Vercel
 .vercel
-
-# Vite
-*.local
 
 # Logs
 logs/

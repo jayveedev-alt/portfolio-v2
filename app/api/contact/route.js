@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 
 const transporter = nodemailer.createTransport({
@@ -25,18 +26,22 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;')
 }
 
-export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+// Mail is sent per request, so there is nothing here to prerender or cache.
+export const dynamic = 'force-dynamic'
 
-  if (req.method === 'OPTIONS') return res.status(200).end()
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
+export async function POST(request) {
+  let payload
+  try {
+    payload = await request.json()
+  } catch {
+    return NextResponse.json({ success: false, error: 'Invalid request body.' }, { status: 400 })
+  }
 
-  const { name, email, subject, message } = req.body
+  const { name, email, subject, message } = payload ?? {}
 
   const validationError = validate({ name, email, message })
   if (validationError) {
-    return res.status(400).json({ success: false, error: validationError })
+    return NextResponse.json({ success: false, error: validationError }, { status: 400 })
   }
 
   try {
@@ -51,16 +56,19 @@ export default async function handler(req, res) {
           <table style="width:100%;border-collapse:collapse;">
             <tr><td style="padding:8px;font-weight:bold;color:#555;">Name</td><td style="padding:8px;">${escapeHtml(name.trim())}</td></tr>
             <tr><td style="padding:8px;font-weight:bold;color:#555;">Email</td><td style="padding:8px;"><a href="mailto:${escapeHtml(email.trim())}">${escapeHtml(email.trim())}</a></td></tr>
-            <tr><td style="padding:8px;font-weight:bold;color:#555;">Subject</td><td style="padding:8px;">${escapeHtml(subject?.trim() || '—')}</td></tr>
+            <tr><td style="padding:8px;font-weight:bold;color:#555;">Subject</td><td style="padding:8px;">${escapeHtml(subject?.trim() || '\u2014')}</td></tr>
           </table>
           <div style="margin-top:16px;padding:16px;background:#f9f5f5;border-radius:8px;white-space:pre-wrap;">${escapeHtml(message.trim())}</div>
         </div>
       `,
     })
 
-    res.json({ success: true })
+    return NextResponse.json({ success: true })
   } catch (err) {
     console.error('Mail error:', err.message)
-    res.status(500).json({ success: false, error: 'Failed to send email. Please try again.' })
+    return NextResponse.json(
+      { success: false, error: 'Failed to send email. Please try again.' },
+      { status: 500 }
+    )
   }
 }

@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useRef, useState } from 'react'
 import SecurePeekMock from './mockups/SecurePeekMock'
 import AuraWashMock from './mockups/AuraWashMock'
