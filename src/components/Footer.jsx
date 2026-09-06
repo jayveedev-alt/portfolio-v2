@@ -1,4 +1,5 @@
 import { Icon } from './Icons'
+import BrandMark from './BrandMark'
 
 const EMAIL = 'jayveedev.alt@gmail.com'
 
@@ -51,11 +52,8 @@ export default function Footer() {
           {/* Left: brand. The pitch and email form that used to sit here just
               repeated the contact section directly above it. */}
           <div className="lg:col-span-5">
-            <a href="/#hero" className="inline-flex items-center gap-2.5">
-              <span className="w-9 h-9 rounded-lg border border-accent/30 bg-accent/10 flex items-center justify-center
-                               font-mono text-xs text-accentT">
-                JB
-              </span>
+            <a href="/#hero" className="inline-flex items-center gap-2.5" aria-label="Santos Builds — home">
+              <BrandMark size={36} className="rounded-lg" />
             </a>
             <p className="text-muted text-sm mt-4 leading-relaxed max-w-[260px]">
               Full-stack developer building clean, scalable web and mobile products —
