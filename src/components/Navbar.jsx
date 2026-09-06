@@ -84,10 +84,10 @@ export default function Navbar() {
     >
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
         {/* Logo */}
-        <a href="/#hero" className="flex items-center shrink-0" aria-label="Mr. Santos — home">
+        <a href="/#hero" className="flex items-center shrink-0" aria-label="Santos Builds — home">
           <span className="font-mono font-bold text-[0.82rem] tracking-[0.1em] uppercase
                            text-ink leading-tight">
-            Mr. Santos
+            Santos Builds
           </span>
         </a>
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { markAppReady } from './appReady'
 
-const NAME = 'Mr. Santos'
+const NAME = 'Santos Builds'
 
 // Held only long enough to settle the fonts, then the name types itself, rests
 // for a couple of caret blinks, and the field closes.

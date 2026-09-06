@@ -103,13 +103,15 @@ export default function Footer() {
           className="font-heading font-bold text-ink uppercase whitespace-nowrap text-center
                      leading-none tracking-[-0.035em]"
           style={{
-            fontSize: 'calc((100vw - 3rem) * 0.118)',
+            // Tuned so the wordmark just fills the line: the ratio is
+            // per-string, so it needs redoing if the name ever changes.
+            fontSize: 'calc((100vw - 3rem) * 0.1428)',
           }}
         >
-          Benedict Santos
+          Santos Builds
         </div>
       </div>
-      <span className="sr-only">John Benedict Santos</span>
+      <span className="sr-only">Santos Builds</span>
     </footer>
   )
 }
