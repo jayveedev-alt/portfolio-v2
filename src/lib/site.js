@@ -15,7 +15,7 @@ const fromEnv =
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : null)
 
-export const SITE_URL = (fromEnv || 'https://johnbsantos.dev').replace(/\/$/, '')
+export const SITE_URL = (fromEnv || 'https://santosbuilds.dev').replace(/\/$/, '')
 
 export const site = {
   url: SITE_URL,
