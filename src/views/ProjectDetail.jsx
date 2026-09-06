@@ -82,7 +82,14 @@ export default function ProjectDetail({ slug }) {
 
         {/* ── The interface ── */}
         <div className="reveal mt-14 rounded-2xl overflow-hidden border border-line">
-          <WorkThumb thumb={item.thumb} image={item.image} fit="auto" className="h-[300px] sm:h-[420px]" />
+          <WorkThumb
+            thumb={item.thumb}
+            image={item.image}
+            alt={`${item.title} — ${item.kicker}`}
+            fit="auto"
+            className="h-[300px] sm:h-[420px]"
+            priority
+          />
         </div>
 
         {/* ── Deep dive, when the project has one ── */}

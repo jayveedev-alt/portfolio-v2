@@ -96,13 +96,44 @@ export default function Contact() {
     }
   }
 
+  /**
+   * Calendly is loaded only once its panel is close to the viewport.
+   *
+   * On mount it pulled ~2.8MB, and it drags Stripe's 237KB SDK in with it —
+   * on every page load, for a widget most visitors never scroll to. It also
+   * sets the third-party cookies (__cf_bm, _cfuvid, m) that Lighthouse flags
+   * under Best Practices. Deferring costs nothing: by the time the panel is
+   * on screen the script has already had a 400px head start.
+   */
   useEffect(() => {
-    if (document.querySelector('script[data-calendly]')) return
-    const script = document.createElement('script')
-    script.src = 'https://assets.calendly.com/assets/external/widget.js'
-    script.async = true
-    script.dataset.calendly = 'true'
-    document.body.appendChild(script)
+    const host = calendlyRef.current
+    if (!host || document.querySelector('script[data-calendly]')) return
+
+    const load = () => {
+      if (document.querySelector('script[data-calendly]')) return
+      const script = document.createElement('script')
+      script.src = 'https://assets.calendly.com/assets/external/widget.js'
+      script.async = true
+      script.dataset.calendly = 'true'
+      document.body.appendChild(script)
+    }
+
+    // No IntersectionObserver (very old browser) — just load it.
+    if (typeof IntersectionObserver === 'undefined') {
+      load()
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        observer.disconnect()
+        load()
+      },
+      { rootMargin: '400px' }
+    )
+    observer.observe(host)
+    return () => observer.disconnect()
   }, [])
 
   useEffect(() => {

@@ -13,11 +13,16 @@ function ArrowRight({ className = 'w-4 h-4' }) {
   )
 }
 
-function WorkCard({ item }) {
+function WorkCard({ item, priority = false }) {
   return (
     <article className="reveal-item card card-hover overflow-hidden flex flex-col group">
       <Link href={`/work/${item.slug}`} className="block" aria-label={`${item.title} — view project`}>
-        <WorkThumb thumb={item.thumb} image={item.image} />
+        <WorkThumb
+          thumb={item.thumb}
+          image={item.image}
+          alt={`${item.title} — ${item.kicker}`}
+          priority={priority}
+        />
       </Link>
 
       <div className="p-7 flex flex-col flex-1">
@@ -117,8 +122,9 @@ export default function SelectedWork() {
 
         {/* Cards */}
         <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 scroll-mt-28">
-          {shown.map((item) => (
-            <WorkCard key={item.slug} item={item} />
+          {shown.map((item, i) => (
+            // The top row is what a visitor lands on; the rest stay lazy.
+            <WorkCard key={item.slug} item={item} priority={i < 3} />
           ))}
         </div>
 

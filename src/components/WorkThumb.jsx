@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import SecurePeekMock from './mockups/SecurePeekMock'
 import AuraWashMock from './mockups/AuraWashMock'
 
@@ -77,15 +78,29 @@ function AbstractThumb({ thumb }) {
  * space); `fit="crop"` keeps the height from `className` so a card grid stays
  * on one baseline.
  */
-export default function WorkThumb({ thumb, image, className = 'h-[220px]', fit = 'crop', targetWidth = 1200 }) {
+export default function WorkThumb({ thumb, image, alt = '', className = 'h-[220px]', fit = 'crop', targetWidth = 1200, priority = false }) {
   const Mock = MOCKS[thumb]
 
   // A supplied screenshot wins over any mockup. 16:10 matches the card's own
   // proportions closely, so cropping is minimal at either size.
+  //
+  // next/image rather than a plain <img>: the banners are 1600x1000 source
+  // files rendered into a ~400px card, so a raw tag shipped roughly 700KB more
+  // than the layout ever needed and served JPEG where AVIF would do. `sizes`
+  // is what makes that work — without it the widest candidate is picked.
   if (image) {
     return (
       <div className={`relative overflow-hidden bg-raised ${fit === 'auto' ? 'aspect-[16/10]' : className}`}>
-        <img src={image} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+        <Image
+          src={image}
+          alt={alt}
+          fill
+          sizes={fit === 'auto' ? '(max-width: 1024px) 100vw, 1024px' : '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px'}
+          className="object-cover"
+          // The first card is usually the largest paint above the fold; the
+          // rest stay lazy.
+          priority={priority}
+        />
       </div>
     )
   }
