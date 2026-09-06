@@ -1,5 +1,7 @@
-import { useEffect } from 'react'
-import { Link, useParams, Navigate } from 'react-router-dom'
+'use client'
+
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
 import { getWorkItem, getAdjacent } from '../data/work'
 import WorkThumb from '../components/WorkThumb'
 import { Icon } from '../components/Icons'
@@ -14,22 +16,17 @@ function ExternalIcon() {
   )
 }
 
-export default function ProjectDetail() {
-  const { slug } = useParams()
+/**
+ * The slug arrives as a prop from the route's server component, which is also
+ * where the title, canonical and Open Graph tags are now set — a real <head>
+ * the crawler sees, rather than a document.title written after hydration.
+ */
+export default function ProjectDetail({ slug }) {
   const item = getWorkItem(slug)
 
   useReveal()
 
-  // The document title is the only "page" signal a client-routed SPA can give.
-  useEffect(() => {
-    if (!item) return
-    const previous = document.title
-    document.title = `${item.title} — John Benedict Santos`
-    return () => { document.title = previous }
-  }, [item])
-
-  // An unknown slug should land on the work grid, not a blank page
-  if (!item) return <Navigate to="/" replace />
+  if (!item) notFound()
 
   const { study } = item
   const { next } = getAdjacent(slug)
@@ -41,7 +38,7 @@ export default function ProjectDetail() {
       <div className="max-w-5xl mx-auto">
 
         <Link
-          to="/#work"
+          href="/#work"
           className="inline-flex items-center gap-2 font-mono text-[0.66rem] tracking-[0.14em]
                      uppercase text-muted hover:text-accentT transition-colors mb-10"
         >
@@ -139,7 +136,7 @@ export default function ProjectDetail() {
         {/* ── Next project ── */}
         {next && next.slug !== item.slug && (
           <Link
-            to={`/work/${next.slug}`}
+            href={`/work/${next.slug}`}
             className="reveal group flex items-center justify-between gap-6 mt-16 pt-10 border-t border-line"
           >
             <div>

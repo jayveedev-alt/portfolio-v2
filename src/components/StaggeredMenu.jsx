@@ -1,3 +1,5 @@
+'use client'
+
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import './StaggeredMenu.css'

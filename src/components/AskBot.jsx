@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useRef, useState } from 'react'
 import { askBot, greeting, suggestions } from '../data/botKnowledge'
 
