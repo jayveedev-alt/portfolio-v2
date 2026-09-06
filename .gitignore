@@ -12,11 +12,13 @@ server/node_modules/
 !.env.example
 
 # Build output
-dist/
+.next/
+out/
 build/
+next-env.d.ts
 
-# Vite
-*.local
+# Vercel
+.vercel
 
 # Logs
 logs/

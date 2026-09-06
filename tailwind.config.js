@@ -1,15 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{js,jsx}'],
+  content: ['./app/**/*.{js,jsx}', './src/**/*.{js,jsx}'],
   theme: {
     extend: {
       fontFamily: {
         // display and heading are the same family — kept as two names so the
         // existing class names still read correctly at their call sites.
-        display: ['"Space Grotesk"', 'sans-serif'],
-        heading: ['"Space Grotesk"', 'sans-serif'],
-        body:    ['Inter', 'sans-serif'],
-        mono:    ['"JetBrains Mono"', 'monospace'],
+        // next/font hands each family a CSS variable, set on <html> in the
+        // root layout. The fallbacks keep text readable before they load.
+        display: ['var(--font-space-grotesk)', 'sans-serif'],
+        heading: ['var(--font-space-grotesk)', 'sans-serif'],
+        body:    ['var(--font-inter)', 'sans-serif'],
+        mono:    ['var(--font-jetbrains-mono)', 'monospace'],
       },
       colors: {
         // Every token is a CSS variable, so `.on-dark` can invert a whole

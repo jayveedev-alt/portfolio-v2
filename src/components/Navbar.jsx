@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useEffect } from 'react'
 import { Icon } from './Icons'
 import { scrollToSection } from './scrollToSection'

@@ -1,3 +1,5 @@
+'use client'
+
 // Faux live operations board for the AuraWash case study.
 // Purely presentational — mirrors the real dashboard's information hierarchy.
 const branches = ['All Branches', 'Makati', 'Pasig', 'Quezon City']

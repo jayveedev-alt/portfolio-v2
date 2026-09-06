@@ -1,3 +1,5 @@
+'use client'
+
 import Hero from '../components/Hero'
 import Marquee from '../components/Marquee'
 import SelectedWork from '../components/SelectedWork'
